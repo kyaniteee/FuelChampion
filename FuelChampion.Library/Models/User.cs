@@ -1,6 +1,6 @@
 ﻿namespace FuelChampion.Library.Models
 {
-    public class User
+    internal class User
     {
         public int Id { get; set; }
 

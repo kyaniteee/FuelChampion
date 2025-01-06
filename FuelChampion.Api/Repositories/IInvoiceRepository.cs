@@ -1,6 +1,9 @@
-﻿namespace FuelChampion.Library.Repositories;
+﻿using FuelChampion.Api.Repositories;
+using FuelChampion.Library.Models;
 
-public interface IInvoiceRepository
+namespace FuelChampion.Library.Repositories;
+
+public interface IInvoiceRepository : IRepositoryBase<Invoice>
 {
 
 }

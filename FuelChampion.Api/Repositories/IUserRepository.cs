@@ -1,5 +1,8 @@
-﻿namespace FuelChampion.Library.Repositories;
+﻿using FuelChampion.Api.Models;
+using FuelChampion.Api.Repositories;
 
-public interface IUserRepository
+namespace FuelChampion.Library.Repositories;
+
+public interface IUserRepository : IRepositoryBase<User>
 {
 }

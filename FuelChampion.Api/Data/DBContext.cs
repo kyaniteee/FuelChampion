@@ -32,7 +32,7 @@ public class DBContext : IdentityDbContext<User>
         };
 
         modelBuilder.Entity<IdentityRole>().HasData(roles);
-        modelBuilder.ApplyConfiguration(new CarsConfig());
+        modelBuilder.ApplyConfiguration(new CarConfig());
     }
 }
 

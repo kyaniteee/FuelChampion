@@ -17,21 +17,19 @@ public class DBContext : IdentityDbContext<User>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        List<IdentityRole> roles = new()
+        modelBuilder.Entity<IdentityRole>().HasData(new()
         {
-            new() {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            },
-            new() {
-                Name = "User",
-                NormalizedName = "USER"
-            }
-        };
-
-        modelBuilder.Entity<IdentityRole>().HasData(roles);
+            Name = "Admin",
+            NormalizedName = "ADMIN"
+        },
+        new()
+        {
+            Name = "User",
+            NormalizedName = "USER"
+        });
         modelBuilder.ApplyConfiguration(new CarConfig());
+        modelBuilder.ApplyConfiguration(new InvoiceConfig());
+        modelBuilder.ApplyConfiguration(new GasStationConfig());
     }
 }
 

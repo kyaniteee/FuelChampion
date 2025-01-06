@@ -28,12 +28,12 @@ public class CarController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id:int}", Name = nameof(GetCarById))]
+    [HttpGet("{id:int}", Name = nameof(GetCar))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<Car>> GetCarById(int id)
+    public async Task<ActionResult<Car>> GetCar(int id)
     {
         if (id <= 0)
         {
@@ -64,7 +64,7 @@ public class CarController : ControllerBase
         var result = await _repository.CreateAsync(car);
 
         car.Id = result.Id;
-        return CreatedAtRoute(nameof(GetCarById), new { id = car.Id }, car);
+        return CreatedAtRoute(nameof(GetCar), new { id = car.Id }, car);
     }
 
     [HttpPut("Update", Name = nameof(UpdateCar))]

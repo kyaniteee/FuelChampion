@@ -18,7 +18,7 @@ public class GasStationController : ControllerBase
     [HttpGet()]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<IEnumerable<GasStation>>> GetGasStatins()
+    public async Task<ActionResult<IEnumerable<GasStation>>> GetGasStations()
     {
         var result = await _repository.GetAllAsync();
 
@@ -28,12 +28,12 @@ public class GasStationController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id:int}", Name = nameof(GetGasStationById))]
+    [HttpGet("{id:int}", Name = nameof(GetGasStation))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<GasStation>> GetGasStationById(int id)
+    public async Task<ActionResult<GasStation>> GetGasStation(int id)
     {
         if (id <= 0)
         {
@@ -64,7 +64,7 @@ public class GasStationController : ControllerBase
         var result = await _repository.CreateAsync(gasStation);
 
         gasStation.Id = result.Id;
-        return CreatedAtRoute(nameof(GetGasStationById), new { id = gasStation.Id }, gasStation);
+        return CreatedAtRoute(nameof(GetGasStation), new { id = gasStation.Id }, gasStation);
     }
 
     [HttpPut("Update", Name = nameof(UpdateGasStation))]

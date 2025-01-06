@@ -18,7 +18,7 @@ public class GasStationController : ControllerBase
     [HttpGet()]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<IEnumerable<GasStation>>> GetAll()
+    public async Task<ActionResult<IEnumerable<GasStation>>> GetGasStations()
     {
         var result = await _repository.GetAllAsync();
 
@@ -28,12 +28,12 @@ public class GasStationController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id:int}", Name = nameof(Get))]
+    [HttpGet("{id:int}", Name = nameof(GetGasStation))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<GasStation>> Get(int id)
+    public async Task<ActionResult<GasStation>> GetGasStation(int id)
     {
         if (id <= 0)
         {
@@ -52,11 +52,11 @@ public class GasStationController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("Create", Name = nameof(Create))]
+    [HttpPost("Create", Name = nameof(CreateGasStation))]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<GasStation>> Create([FromBody] GasStation gasStation)
+    public async Task<ActionResult<GasStation>> CreateGasStation([FromBody] GasStation gasStation)
     {
         if (gasStation == null)
             return BadRequest();
@@ -64,15 +64,15 @@ public class GasStationController : ControllerBase
         var result = await _repository.CreateAsync(gasStation);
 
         gasStation.Id = result.Id;
-        return CreatedAtRoute(nameof(Get), new { id = gasStation.Id }, gasStation);
+        return CreatedAtRoute(nameof(GetGasStation), new { id = gasStation.Id }, gasStation);
     }
 
-    [HttpPut("Update", Name = nameof(Update))]
+    [HttpPut("Update", Name = nameof(UpdateGasStation))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult> Update([FromBody] GasStation gasStation)
+    public async Task<ActionResult> UpdateGasStation([FromBody] GasStation gasStation)
     {
         if (gasStation == null || gasStation.Id <= 0)
             BadRequest();
@@ -86,12 +86,12 @@ public class GasStationController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}", Name = nameof(Delete))]
+    [HttpDelete("{id}", Name = nameof(DeleteGasStation))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<bool>> Delete(int id)
+    public async Task<ActionResult<bool>> DeleteGasStation(int id)
     {
         if (id <= 0)
             return BadRequest();

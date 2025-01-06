@@ -1,13 +1,8 @@
-﻿namespace FuelChampion.Library.Models;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class User
+namespace FuelChampion.Api.Models
 {
-    public string? Id { get; set; }
-    public string? Login { get; set; }
-    public string? Password { get; set; }
-    public string? FirstName { get; set; }
-    public string? SecondName { get; set; }
-    public string? Email { get; set; }
-    public string? City { get; set; }
-    public DateTime? RegistrationDate { get; set; }
+    public class User : IdentityUser
+    {
+    }
 }

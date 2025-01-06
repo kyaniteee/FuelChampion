@@ -2,7 +2,7 @@
 
 public class GasStation
 {
-    public string? Id { get; set; }
+    public int Id { get; set; }
     public string? Name { get; set; }//"nazwa": ""ALFA" SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
     //public "nip": "7731662995",
     //public "regon": "590443890",

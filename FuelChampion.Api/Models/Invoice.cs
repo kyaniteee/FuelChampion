@@ -4,7 +4,7 @@ namespace FuelChampion.Library.Models;
 
 public class Invoice
 {
-    public string? Id { get; set; }
+    public int Id { get; set; }
     public string? CarId { get; set; }
     public string? UserId { get; set; }
     public string? GasStationId { get; set; }

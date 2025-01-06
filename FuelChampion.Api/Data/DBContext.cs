@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FuelChampion.Api.Data;
 
-public class DBContext : IdentityDbContext<AppUser>
+public class DBContext : IdentityDbContext<User>
 {
     public virtual DbSet<Car> Cars { get; set; }
     public virtual DbSet<GasStation> GasStations { get; set; }

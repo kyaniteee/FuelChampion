@@ -56,32 +56,30 @@ namespace FuelChampion.Api.Data.Config
                 .IsRequired()
                 .HasColumnName("FuelType");
 
-            builder.HasData(new List<Invoice>()
+            builder.HasData(
+            new()
             {
-                new()
-                {
-                    Id = 1,
-                    CarId = 1,
-                    UserId = 1,
-                    GasStationId = 1,
-                    TotalPrice = 200.00m,
-                    PricePerLiter = 5.00m,
-                    RefuelingDate = new(2024, 12, 25),
-                    RefueledLitersAmount = 40,
-                    FuelType = FuelType.Pb98E5
-                },
-                new()
-                {
-                    Id = 2,
-                    CarId = 1,
-                    UserId = 1,
-                    GasStationId = 2,
-                    TotalPrice = 300.00m,
-                    PricePerLiter = 5.50m,
-                    RefuelingDate = new(2025, 1, 5),
-                    RefueledLitersAmount = 54,
-                    FuelType = FuelType.Pb98E5
-                }
+                Id = 1,
+                CarId = 1,
+                UserId = Guid.NewGuid(),
+                GasStationId = 1,
+                TotalPrice = 200.00m,
+                PricePerLiter = 5.00m,
+                RefuelingDate = new(2024, 12, 25),
+                RefueledLitersAmount = 40,
+                FuelType = FuelType.Pb98E5
+            },
+            new()
+            {
+                Id = 2,
+                CarId = 1,
+                UserId = Guid.NewGuid(),
+                GasStationId = 2,
+                TotalPrice = 300.00m,
+                PricePerLiter = 5.50m,
+                RefuelingDate = new(2025, 1, 5),
+                RefueledLitersAmount = 54,
+                FuelType = FuelType.Pb98E5
             });
         }
     }

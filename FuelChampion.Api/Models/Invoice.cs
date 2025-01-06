@@ -1,4 +1,6 @@
-﻿namespace FuelChampion.Library.Models;
+﻿using FuelChampion.Api.Enums;
+
+namespace FuelChampion.Library.Models;
 
 public class Invoice
 {
@@ -10,4 +12,6 @@ public class Invoice
     public decimal? PricePerLiter { get; set; }
     public DateTime RefuelingDate { get; set; }
     public decimal? RefueledLitersAmount { get; set; }
+    public FuelType FuelType { get; set; }
+
 }

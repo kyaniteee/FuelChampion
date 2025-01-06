@@ -5,7 +5,7 @@ namespace FuelChampion.Api;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddLibrary(this IServiceCollection services)
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddSingleton<ICarRepository, CarRepository>();
         services.AddSingleton<IUserRepository, UserRepository>();

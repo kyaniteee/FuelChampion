@@ -18,7 +18,7 @@ public class CarController : ControllerBase
     [HttpGet()]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<IEnumerable<Car>>> GetCars()
+    public async Task<ActionResult<IEnumerable<Car>>> GetAll()
     {
         var result = await _repository.GetAllAsync();
 
@@ -28,12 +28,12 @@ public class CarController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id:int}", Name = nameof(GetCarById))]
+    [HttpGet("{id:int}", Name = nameof(Get))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<Car>> GetCarById(int id)
+    public async Task<ActionResult<Car>> Get(int id)
     {
         if (id <= 0)
         {
@@ -52,11 +52,11 @@ public class CarController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("Create", Name = nameof(CreateCar))]
+    [HttpPost("Create", Name = nameof(Create))]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<Car>> CreateCar([FromBody] Car car)
+    public async Task<ActionResult<Car>> Create([FromBody] Car car)
     {
         if (car == null)
             return BadRequest();
@@ -64,15 +64,15 @@ public class CarController : ControllerBase
         var result = await _repository.CreateAsync(car);
 
         car.Id = result.Id;
-        return CreatedAtRoute(nameof(GetCarById), new { id = car.Id }, car);
+        return CreatedAtRoute(nameof(Get), new { id = car.Id }, car);
     }
 
-    [HttpPut("Update", Name = nameof(UpdateCar))]
+    [HttpPut("Update", Name = nameof(Update))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult> UpdateCar([FromBody] Car car)
+    public async Task<ActionResult> Update([FromBody] Car car)
     {
         if (car == null || car.Id <= 0)
             BadRequest();
@@ -86,12 +86,12 @@ public class CarController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id}", Name = nameof(DeleteCar))]
+    [HttpDelete("{id}", Name = nameof(Delete))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<bool>> DeleteCar(int id)
+    public async Task<ActionResult<bool>> Delete(int id)
     {
         if (id <= 0)
             return BadRequest();

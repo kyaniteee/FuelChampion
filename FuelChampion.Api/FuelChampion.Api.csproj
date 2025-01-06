@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FuelChampion.Api\FuelChampion.Api.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FuelChampion.Library\FuelChampion.Library.csproj" />
   </ItemGroup>
 

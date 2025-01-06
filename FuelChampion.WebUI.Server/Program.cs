@@ -1,5 +1,5 @@
+using FuelChampion.Api;
 using FuelChampion.WebUI.Server.Components;
-using FuelChampion.Library;
 
 var builder = WebApplication.CreateBuilder(args);
 

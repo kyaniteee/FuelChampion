@@ -1,0 +1,6 @@
+@FuelChampion.Api_HostAddress = http://localhost:5249
+
+GET {{FuelChampion.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

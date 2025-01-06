@@ -1,5 +1,8 @@
-﻿namespace FuelChampion.Library.Repositories;
+﻿using FuelChampion.Api.Repositories;
+using FuelChampion.Library.Models;
 
-public interface ICarRepository
+namespace FuelChampion.Library.Repositories;
+
+public interface ICarRepository : IRepositoryBase<Car>
 {
 }

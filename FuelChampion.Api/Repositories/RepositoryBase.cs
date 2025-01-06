@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace FuelChampion.Api.Repositories
 {
-    public class RepositoryBase<T> : IFuelRepository<T> where T : class
+    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         private readonly FuelContext _dbContext;
         private readonly DbSet<T> _dbSet;

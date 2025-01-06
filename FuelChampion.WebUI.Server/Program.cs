@@ -1,11 +1,9 @@
-using FuelChampion.Api;
 using FuelChampion.WebUI.Server.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents();
-builder.Services.AddLibrary();
 
 var app = builder.Build();
 

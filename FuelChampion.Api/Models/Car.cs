@@ -1,4 +1,5 @@
-﻿namespace FuelChampion.Library.Models;
+﻿
+namespace FuelChampion.Api.Models;
 
 public class Car
 {

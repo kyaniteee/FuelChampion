@@ -1,6 +1,5 @@
 ﻿using FuelChampion.Api.Data;
-using FuelChampion.Library.Models;
-using FuelChampion.Library.Repositories;
+using FuelChampion.Api.Models;
 
 namespace FuelChampion.Api.Repositories;
 

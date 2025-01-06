@@ -4,4 +4,5 @@ namespace FuelChampion.Api.Models;
 
 public class User : IdentityUser
 {
+
 }

@@ -1,7 +1,6 @@
-﻿using FuelChampion.Api.Repositories;
-using FuelChampion.Library.Models;
+﻿using FuelChampion.Api.Models;
 
-namespace FuelChampion.Library.Repositories;
+namespace FuelChampion.Api.Repositories;
 
 public interface IGasStationRepository : IRepositoryBase<GasStation>
 {

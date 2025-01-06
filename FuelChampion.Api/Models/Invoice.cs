@@ -1,8 +1,6 @@
 ﻿using FuelChampion.Api.Enums;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
-namespace FuelChampion.Library.Models;
+namespace FuelChampion.Api.Models;
 
 public class Invoice
 {

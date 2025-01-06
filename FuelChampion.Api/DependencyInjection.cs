@@ -1,5 +1,4 @@
 ﻿using FuelChampion.Api.Repositories;
-using FuelChampion.Library.Repositories;
 
 namespace FuelChampion.Api;
 

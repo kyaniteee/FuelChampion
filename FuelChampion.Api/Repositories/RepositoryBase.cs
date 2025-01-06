@@ -6,13 +6,13 @@ namespace FuelChampion.Api.Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        private readonly FuelContext _dbContext;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbSet<T> _dbSet;
+        protected readonly DBContext _context;
 
-        public RepositoryBase(FuelContext dbContext)
+        public RepositoryBase(DBContext context)
         {
-            _dbContext = dbContext;
-            _dbSet = _dbContext.Set<T>();
+            _context = context;
+            _dbSet = _context.Set<T>();
         }
         public async Task<ICollection<T>> GetAllAsync()
         {
@@ -31,7 +31,7 @@ namespace FuelChampion.Api.Repositories
         public async Task<T> UpdateAsync(T dbRecord)
         {
             _dbSet.Update(dbRecord);
-            await _dbContext.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return dbRecord;
         }
@@ -39,14 +39,14 @@ namespace FuelChampion.Api.Repositories
         public async Task<T> CreateAsync(T dbRecord)
         {
             _dbSet.Add(dbRecord);
-            await _dbContext.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return dbRecord;
         }
 
         public async Task<bool> DeleteAsync(T dbRecord)
         {
             _dbSet.Remove(dbRecord);
-            await _dbContext.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return true;
         }
     }

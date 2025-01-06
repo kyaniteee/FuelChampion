@@ -6,9 +6,7 @@ namespace FuelChampion.Api.Repositories;
 
 public class CarRepository : RepositoryBase<Car>, ICarRepository
 {
-    private readonly FuelContext _dbContext;
-    public CarRepository(FuelContext dbContext) : base(dbContext)
+    public CarRepository(DBContext context) : base(context)
     {
-        _dbContext = dbContext;
     }
 }

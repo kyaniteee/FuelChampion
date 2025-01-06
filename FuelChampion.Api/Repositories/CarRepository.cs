@@ -6,7 +6,7 @@ namespace FuelChampion.Api.Repositories;
 
 public class CarRepository : RepositoryBase<Car>, ICarRepository
 {
-    public CarRepository(DBContext context) : base(context)
-    {
-    }
+    public CarRepository(DBContext context) : base(context) { }
+
+
 }

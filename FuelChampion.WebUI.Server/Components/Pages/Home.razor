@@ -4,22 +4,38 @@
 @using FuelChampion.WebUI.Server.Services
 
 
-<PageTitle>Strona domowa</PageTitle>
+<PageTitle>Strona główna</PageTitle>
 
-<ul>
-    @if (data == null)
-    {
-        <li>Ładowanie...</li>
-    }
-    else
-    {
-        @foreach (var item in data)
-        {
-            <li>@item.Voivodeship</li>
-        }
-    }
-</ul>
-
+@if (data == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Województwo</th>
+                <th>Pb 95</th>
+                <th>Pb 98</th>
+                <th>DIESEL</th>
+                <th>LPG</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in data)
+            {
+                <tr>
+                    <td>@item.Voivodeship</td>
+                    <td>@item.PricePerLiterAvgPb95?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td>@item.PricePerLiterAvgPb98?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td>@item.PricePerLiterAvgDiesel?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td>@item.PricePerLiterAvgLpg?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
     private List<GasStationAvgVoivodeshipPrice>? data;

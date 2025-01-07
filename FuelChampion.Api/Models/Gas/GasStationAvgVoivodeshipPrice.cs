@@ -1,11 +1,11 @@
-﻿using FuelChampion.Api.Enums;
-
-namespace FuelChampion.Api.Models.Gas;
+﻿namespace FuelChampion.Api.Models.Gas;
 
 
 public class GasStationAvgVoivodeshipPrice
 {
     public string? Voivodeship { get; set; }
-    public FuelType FuelType { get; set; }
-    public decimal? PricePerLiterAvg { get; set; }
+    public decimal? PricePerLiterAvgLpg { get; set; }
+    public decimal? PricePerLiterAvgPb95 { get; set; }
+    public decimal? PricePerLiterAvgPb98 { get; set; }
+    public decimal? PricePerLiterAvgDiesel { get; set; }
 }

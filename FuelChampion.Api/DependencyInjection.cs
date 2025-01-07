@@ -40,4 +40,11 @@ public static class DependencyInjection
 
         return services;
     }
+
+    public static IServiceCollection ConfigureMappingProfiles(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(MappingProfile));
+
+        return services;
+    }
 }

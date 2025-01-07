@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddRepositories();
 builder.Services.ConfigureCors();
+builder.Services.ConfigureMappingProfiles();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();

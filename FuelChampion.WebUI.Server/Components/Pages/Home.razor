@@ -1,7 +1,7 @@
-﻿@using FuelChampion.Api.Models
-@using FuelChampion.WebUI.Server.Services
-@inject ApiService ApiService
+﻿@inject ApiService ApiService
 @page "/"
+@using FuelChampion.Api.Models.Gas
+@using FuelChampion.WebUI.Server.Services
 
 
 <PageTitle>Strona domowa</PageTitle>
@@ -15,17 +15,17 @@
     {
         @foreach (var item in data)
         {
-            <li>@item.Name</li>
+            <li>@item.Voivodeship</li>
         }
     }
 </ul>
 
 
 @code {
-    private List<GasStation>? data;
-    
+    private List<GasStationAvgVoivodeshipPrice>? data;
+
     protected override async Task OnInitializedAsync()
     {
-        data = await ApiService.GetAsync<List<GasStation>>("GasStation");
+        data = await ApiService.GetAsync<List<GasStationAvgVoivodeshipPrice>>("GasStation/avg");
     }
 }

@@ -1,4 +1,5 @@
-﻿using FuelChampion.Api.Data;
+﻿using AutoMapper;
+using FuelChampion.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -7,11 +8,13 @@ namespace FuelChampion.Api.Repositories;
 public class RepositoryBase<T> where T : class
 {
     protected readonly DbSet<T> _dbSet;
+    protected readonly IMapper _mapper;
     protected readonly DBContext _context;
 
-    public RepositoryBase(DBContext context)
+    public RepositoryBase(DBContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
         _dbSet = _context.Set<T>();
     }
     public async Task<ICollection<T>> GetAllAsync()

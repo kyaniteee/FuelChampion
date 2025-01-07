@@ -1,4 +1,4 @@
-﻿using FuelChampion.Api.Models;
+﻿using FuelChampion.Api.Models.Gas;
 using FuelChampion.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +14,20 @@ public class GasStationController : ControllerBase
     {
         _repository = repository;
     }
+
+    [HttpGet("avg", Name = nameof(GetGasStationsAvgVoivodeshipPrices))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<IEnumerable<GasStationAvgVoivodeshipPrice>>> GetGasStationsAvgVoivodeshipPrices()
+    {
+        var result = await _repository.GetAvgVoivodeshipPrices();
+
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        return Ok(result);
+    }
+
 
     [HttpGet()]
     [ProducesResponseType(StatusCodes.Status200OK)]

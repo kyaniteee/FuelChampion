@@ -1,4 +1,6 @@
 ﻿using FuelChampion.Api.Models;
+using FuelChampion.Api.Models.Account;
+using FuelChampion.Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,18 +10,18 @@ namespace FuelChampion.Api.Controllers;
 public class AccountController : ControllerBase
 {
     private readonly UserManager<User> _userManager;
-    //private readonly ITokenService _tokenService;
+    private readonly ITokenService _tokenService;
     private readonly SignInManager<User> _signInManager;
 
-    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+    public AccountController(UserManager<User> userManager, ITokenService tokenService, SignInManager<User> signInManager)
     {
         _userManager = userManager;
-        //_tokenService = tokenService;
+        _tokenService = tokenService;
         _signInManager = signInManager;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] User registerUser)
+    [HttpPost(nameof(Register))]
+    public async Task<IActionResult> Register([FromBody] RegisterDto registerDTO)
     {
         try
         {
@@ -28,11 +30,11 @@ public class AccountController : ControllerBase
 
             var appUser = new User
             {
-                UserName = registerUser.UserName,
-                Email = registerUser.Email,
+                UserName = registerDTO.UserName,
+                Email = registerDTO.Email,
             };
 
-            var createdUser = await _userManager.CreateAsync(appUser, registerUser.PasswordHash);
+            var createdUser = await _userManager.CreateAsync(appUser, registerDTO.Password);
 
             if (!createdUser.Succeeded)
                 return BadRequest(createdUser.Errors);
@@ -42,11 +44,11 @@ public class AccountController : ControllerBase
                 return BadRequest(roleResult.Errors);
 
             return Ok(
-                  new User
+                  new NewUserDTO
                   {
                       UserName = appUser.UserName,
                       Email = appUser.Email,
-                      //Token = _tokenService.CreateToken(appUser)
+                      Token = _tokenService.CreateToken(appUser)
                   }
               );
         }
@@ -56,30 +58,30 @@ public class AccountController : ControllerBase
         }
     }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login(User login)
+    [HttpPost(nameof(Login))]
+    public async Task<IActionResult> Login(LoginDto loginDTO)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName.ToLower() == login.UserName.ToLower());
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName.ToLower() == loginDTO.UserName.ToLower());
 
             if (user == null)
                 return Unauthorized("Invalid username!");
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, login.PasswordHash, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDTO.Password, false);
 
             if (!result.Succeeded)
                 return Unauthorized("User not found and/or password incorrect.");
 
             return Ok(
-                new User
+                new NewUserDTO
                 {
                     UserName = user.UserName,
                     Email = user.Email,
-                    //Token = _tokenService.CreateToken(user)
+                    Token = _tokenService.CreateToken(user)
                 }
             );
         }

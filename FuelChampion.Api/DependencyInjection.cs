@@ -7,6 +7,8 @@ namespace FuelChampion.Api;
 
 public static class DependencyInjection
 {
+    public const string DEFAULT_POLICY = "AllowBlazor";
+
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddTransient<ICarRepository, CarRepository>();
@@ -21,6 +23,21 @@ public static class DependencyInjection
     {
         services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString)
                                                            .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
+        return services;
+    }
+
+    public static IServiceCollection ConfigureCors(this IServiceCollection services)
+    {
+        services.AddCors(options =>
+        {
+            options.AddPolicy(DEFAULT_POLICY, policy =>
+            {
+                policy.WithOrigins("https://localhost:7165", "http://localhost:5117")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            });
+        });
+
         return services;
     }
 }

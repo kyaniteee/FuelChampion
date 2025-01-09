@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FuelChampion.Api\FuelChampion.Api.csproj" />
+    <ProjectReference Include="..\FuelChampion.Library\FuelChampion.Library.csproj" />
   </ItemGroup>
 
 </Project>

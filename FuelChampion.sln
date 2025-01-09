@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelChampion.WebUI.Server",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelChampion.Api", "FuelChampion.Api\FuelChampion.Api.csproj", "{B44414F1-2C6F-429A-AE4F-47C0434BA382}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuelChampion.Library", "FuelChampion.Library\FuelChampion.Library.csproj", "{277D0418-020B-4135-989C-3B06735A2142}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{B44414F1-2C6F-429A-AE4F-47C0434BA382}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B44414F1-2C6F-429A-AE4F-47C0434BA382}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B44414F1-2C6F-429A-AE4F-47C0434BA382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{277D0418-020B-4135-989C-3B06735A2142}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277D0418-020B-4135-989C-3B06735A2142}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277D0418-020B-4135-989C-3B06735A2142}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277D0418-020B-4135-989C-3B06735A2142}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0E2ED5C9-29FB-4FC7-BF86-AEDF86E21C2E} = {DD687613-7FE3-40E3-97F0-FC9F64AA1FC9}
 		{B44414F1-2C6F-429A-AE4F-47C0434BA382} = {DD687613-7FE3-40E3-97F0-FC9F64AA1FC9}
+		{277D0418-020B-4135-989C-3B06735A2142} = {DD687613-7FE3-40E3-97F0-FC9F64AA1FC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B571C16B-F6F7-4DDA-9997-06422E8F7E3C}

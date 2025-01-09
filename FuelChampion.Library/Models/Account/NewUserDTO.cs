@@ -1,4 +1,4 @@
-﻿namespace FuelChampion.Api.Models.Account;
+﻿namespace FuelChampion.Library.Models.Account;
 
 public class NewUserDTO
 {

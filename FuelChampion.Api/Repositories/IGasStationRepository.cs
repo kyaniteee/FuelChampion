@@ -1,4 +1,4 @@
-﻿using FuelChampion.Api.Models.Gas;
+﻿using FuelChampion.Library.Models.Gas;
 
 namespace FuelChampion.Api.Repositories;
 

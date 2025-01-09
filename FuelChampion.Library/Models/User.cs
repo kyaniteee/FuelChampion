@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace FuelChampion.Api.Models;
+namespace FuelChampion.Library.Models;
 
 public class User : IdentityUser
 {

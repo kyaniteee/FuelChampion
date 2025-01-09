@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FuelChampion.Api.Data;
-using FuelChampion.Api.Models.Gas;
+using FuelChampion.Library.Models.Gas;
 using Microsoft.EntityFrameworkCore;
 
 namespace FuelChampion.Api.Repositories;

@@ -1,6 +1,6 @@
-﻿using FuelChampion.Api.Enums;
+﻿using FuelChampion.Library.Enums;
 
-namespace FuelChampion.Api.Models;
+namespace FuelChampion.Library.Models;
 
 public class Invoice
 {

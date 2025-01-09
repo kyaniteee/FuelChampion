@@ -1,4 +1,4 @@
-﻿using FuelChampion.Api.Models.Gas;
+﻿using FuelChampion.Library.Models.Gas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

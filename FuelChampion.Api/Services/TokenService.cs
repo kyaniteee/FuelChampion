@@ -1,4 +1,4 @@
-﻿using FuelChampion.Api.Models;
+﻿using FuelChampion.Library.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

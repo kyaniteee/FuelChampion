@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FuelChampion.Api.Models.Gas;
 
 namespace FuelChampion.Api;
 

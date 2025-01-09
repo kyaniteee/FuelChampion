@@ -1,5 +1,5 @@
-﻿using FuelChampion.Api.Models;
-using FuelChampion.Api.Repositories;
+﻿using FuelChampion.Api.Repositories;
+using FuelChampion.Library.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuelChampion.Api.Controllers;

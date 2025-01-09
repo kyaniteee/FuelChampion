@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FuelChampion.Api.Data;
-using FuelChampion.Api.Models;
+using FuelChampion.Library.Models;
 
 namespace FuelChampion.Api.Repositories;
 

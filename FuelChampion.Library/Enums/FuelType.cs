@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace FuelChampion.Api.Enums;
+namespace FuelChampion.Library.Enums;
 
 public enum FuelType
 {

@@ -1,6 +1,6 @@
-﻿using FuelChampion.Api.Models;
-using FuelChampion.Api.Models.Account;
-using FuelChampion.Api.Services;
+﻿using FuelChampion.Api.Services;
+using FuelChampion.Library.Models;
+using FuelChampion.Library.Models.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

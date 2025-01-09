@@ -1,4 +1,4 @@
-﻿namespace FuelChampion.Api.Models.Gas;
+﻿namespace FuelChampion.Library.Models.Gas;
 
 public class GasStation
 {

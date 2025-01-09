@@ -1,5 +1,5 @@
 ﻿
-namespace FuelChampion.Api.Models;
+namespace FuelChampion.Library.Models;
 
 public class Car
 {

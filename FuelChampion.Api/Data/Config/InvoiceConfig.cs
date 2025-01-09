@@ -1,5 +1,5 @@
-﻿using FuelChampion.Api.Enums;
-using FuelChampion.Api.Models;
+﻿using FuelChampion.Library.Enums;
+using FuelChampion.Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

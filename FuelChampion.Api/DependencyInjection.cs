@@ -32,7 +32,7 @@ public static class DependencyInjection
         {
             options.AddPolicy(DEFAULT_POLICY, policy =>
             {
-                policy.WithOrigins("https://localhost:7165", "http://localhost:5117")
+                policy.WithOrigins("https://localhost:7026", "http://localhost:5065")
                       .AllowAnyHeader()
                       .AllowAnyMethod();
             });

@@ -1,0 +1,88 @@
+﻿@page "/invoice/"
+@page "/invoice/{id:int}"
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+
+@if (Id is null)
+{
+    <PageTitle>Dodaj nowy paragon</PageTitle>
+    <h3>Dodaj nowy paragon</h3>
+}
+else
+{
+    <PageTitle>Edytuj @invoice.RefuelingDate</PageTitle>
+    <h3>Edytuj @invoice.RefuelingDate</h3>
+}
+
+<EditForm Model="invoice" OnSubmit="HandleSubmit">
+    <div>
+        <label for="refuelingDate">Data</label>
+        <InputDate id="refuelingDate" @bind-Value="invoice.RefuelingDate" class="form-control" />
+    </div>
+    <div>
+        <label for="fuelType">Typ</label>
+        <InputSelect id="fuelType" @bind-Value="invoice.FuelType" class="form-control">
+            @foreach (var type in Enum.GetValues(typeof(FuelType)))
+            {
+                <option value="@type">@type</option>
+            }
+        </InputSelect>
+    </div>
+    <div>
+        <label for="pricePerLiter">Cena za litr</label>
+        <InputNumber id="pricePerLiter" @bind-Value="invoice.PricePerLiter" class="form-control" />
+    </div>
+    <div>
+        <label for="refueledLitersAmount">Ile litrów</label>
+        <InputNumber id="refueledLitersAmount" @bind-Value="invoice.RefueledLitersAmount" class="form-control" />
+    </div>
+    <div>
+        <label for="totalPrice">Cena całkowita</label>
+        <InputNumber id="totalPrice" @bind-Value="invoice.TotalPrice" class="form-control" />
+    </div> <br />
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    Invoice invoice = new Invoice
+        {
+            // CarId = null,
+            // UserId = new Guid(),
+            // GasStationId = 1,
+            // TotalPrice = null,
+            // RefuelingDate = DateTime.Now,
+            // FuelType = Library.Enums.FuelType.Pb95E10,
+            // PricePerLiter = 2,
+            // RefueledLitersAmount = 2
+        };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is not null)
+        {
+            var result = await ApiService.GetAsync<Invoice>($"/invoice/{Id}");
+            if (result is not null)
+            {
+                invoice = result;
+            }
+        }
+    }
+
+    async Task HandleSubmit()
+    {
+        if (Id is null)
+        {
+            await ApiService.PostAsync("/invoice/Create", invoice);
+            // await http.PostAsJsonAsync("/invoice", invoice);
+        }
+        else
+        {
+            await ApiService.PostAsync($"/invoice/{Id}", invoice);
+            // await http.PutAsJsonAsync($"/invoice/{Id}", invoice);
+
+        }
+        NavigationManager.NavigateTo("/history");
+    }
+}

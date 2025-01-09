@@ -1,0 +1,60 @@
+﻿@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+
+@page "/history"
+
+<PageTitle>Historia</PageTitle>
+
+<h3>Historia tankowań:</h3>
+
+@if (invoices is null)
+{
+    <span>Ładowanie historii...</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Litrów</th>
+                <th>Typ </th>
+                <th>Cena za litr</th>
+                <th>Cena całkowita</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var invoice in invoices)
+            {
+                <tr>
+                    <td>@invoice.RefuelingDate.ToString("HH.mm:ss dd.MM.yyyy")</td>
+                    <td>@invoice.RefueledLitersAmount</td>
+                    <td>@invoice.FuelType</td>
+                    <td>@invoice.PricePerLiter?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td>@invoice.TotalPrice?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td><button @onclick="() => EditInvoice(invoice.Id)" class="btn btn-secondary">Edytuj</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p>
+    <button @onclick="AddNewInvoice" class="btn btn-primary">Dodaj nowy paragon</button>
+</p>
+
+@code {
+    private List<Invoice> invoices = new List<Invoice>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        invoices = await ApiService.GetAsync<List<Invoice>>("/invoice");
+    }
+
+    private async Task AddNewInvoice()
+    {
+        NavigationManager.NavigateTo("/invoice");
+    }
+
+    void EditInvoice(int id) => NavigationManager.NavigateTo($"/invoice/{id}");
+}

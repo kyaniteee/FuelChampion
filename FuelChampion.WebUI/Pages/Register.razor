@@ -1,0 +1,42 @@
+﻿@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+@page "/Rejestracja"
+
+<PageTitle>Rejestracja</PageTitle>
+<h3>Rejestracja</h3>
+
+<EditForm Model="User" OnValidSubmit="HandleSubmit">
+    <div>
+        <label for="userName">Nazwa użytkownika:</label>
+        <InputText id="userName" @bind-Value="User.UserName" class="form-control"/>
+    </div>
+    <div>
+        <label for="email">E-mail:</label>
+        <InputText id="email" @bind-Value="User.Email" class="form-control" />
+    </div>
+    <div>
+        <label for="password">Hasło:</label>
+        <InputText type="password" id="password" @bind-Value="User.Password" class="form-control" />
+    </div>
+    <div>
+        <label for="voivodeship">Województwo</label>
+        <InputText id="voivodeship" @bind-Value="User.Voivodeship" class="form-control" />
+    </div>
+    <div>
+        <label for="city">Miasto</label>
+        <InputText id="city" @bind-Value="User.City" class="form-control" />
+    </div> <br />
+    <button type="submit" class="btn btn-primary">Zarejestruj</button>
+</EditForm>
+
+@code {
+    public int? Id { get; set; }
+    public RegisterDto User = new RegisterDto();
+
+
+    async Task HandleSubmit()
+    {
+        await ApiService.PostAsync("/Register", User);
+    }
+
+}

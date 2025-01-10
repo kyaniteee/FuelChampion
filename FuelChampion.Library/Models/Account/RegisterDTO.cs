@@ -13,4 +13,7 @@ public class RegisterDto
 
     [Required]
     public string? Password { get; set; }
+
+    public string? Voivodeship { get; set; }
+    public string? City { get; set; }
 }

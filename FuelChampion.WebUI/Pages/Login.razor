@@ -1,0 +1,28 @@
+﻿@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+@page "/Logowanie"
+
+<PageTitle>Logowanie</PageTitle>
+<h3>Logowanie</h3>
+
+<EditForm Model="User" OnValidSubmit="HandleSubmit">
+    <div>
+        <label for="login">Nazwa użytkownika:</label>
+        <InputText id="login" @bind-Value="User.UserName" class="form-control" />
+    </div>
+    <div>
+        <label for="password">Hasło:</label>
+        <InputText type="password" id="password" @bind-Value="User.Password" class="form-control" />
+    </div> <br />
+    <button type="submit" class="btn btn-primary">Logowanie</button>
+</EditForm>
+
+@code {
+    public int? Id { get; set; }
+    public LoginDto User = new LoginDto();
+
+    async Task HandleSubmit()
+    {
+        await ApiService.PostAsync("/Login", User);
+    }
+}

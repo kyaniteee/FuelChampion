@@ -32,6 +32,8 @@ public class AccountController : ControllerBase
             {
                 UserName = registerDTO.UserName,
                 Email = registerDTO.Email,
+                Voivodeship = registerDTO.Voivodeship,
+                City = registerDTO.City,
             };
 
             var createdUser = await _userManager.CreateAsync(appUser, registerDTO.Password);

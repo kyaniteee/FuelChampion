@@ -20,7 +20,13 @@
     </div>
     <div>
         <label for="voivodeship">Województwo</label>
-        <InputText id="voivodeship" @bind-Value="User.Voivodeship" class="form-control" />
+        <InputSelect id="voivodeship" @bind-Value="User.Voivodeship" class="form-control" DisplayName="Wybierz województwo" >
+            <option value=""></option>
+            @foreach (var voievodeship in EnumExtensions.ToList<Voivodeship>())
+            {
+                <option value="@voievodeship.Value">@voievodeship.Description</option>
+            }
+        </InputSelect>
     </div>
     <div>
         <label for="city">Miasto</label>
@@ -33,10 +39,11 @@
     public int? Id { get; set; }
     public RegisterDto User = new RegisterDto();
 
-
     async Task HandleSubmit()
     {
-        await ApiService.PostAsync("/Register", User);
+        HttpContent httpContent = JsonContent.Create(User);
+
+        await ApiService.PostAsync<User>("/Register", httpContent);
     }
 
 }

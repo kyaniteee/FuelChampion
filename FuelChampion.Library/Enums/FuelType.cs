@@ -8,8 +8,8 @@ public enum FuelType
     Pb95E10 = 1,
     [Description("Benzyna 98 E5")]
     Pb98E5 = 2,
-    [Description("Gaz")]
+    [Description("Gaz LPG")]
     LPG = 4,
     [Description("Olej napędowy B7")]
-    DIESELB7 = 8
+    DIESELB7 = 8,
 }

@@ -70,7 +70,7 @@ else
     {
         if (Id is null)
         {
-            await ApiService.PostAsync("/invoice/Create", invoice);
+            await ApiService.PostAsJsonAsync("/invoice/Create", invoice);
         }
         else
         {

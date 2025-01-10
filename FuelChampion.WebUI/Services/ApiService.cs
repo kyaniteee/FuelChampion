@@ -21,4 +21,10 @@ public class ApiService
         var response = await _httpClient.PostAsJsonAsync(endpoint, data);
         return response.IsSuccessStatusCode;
     }
+
+    public async Task<bool> PutAsync<T>(string endpoint, T data)
+    {
+        var response = await _httpClient.PutAsJsonAsync(endpoint, data);
+        return response.IsSuccessStatusCode;
+    }
 }

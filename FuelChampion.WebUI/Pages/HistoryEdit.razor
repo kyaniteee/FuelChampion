@@ -48,14 +48,10 @@ else
     public int? Id { get; set; }
     Invoice invoice = new Invoice
         {
-            // CarId = null,
-            // UserId = new Guid(),
-            // GasStationId = 1,
-            // TotalPrice = null,
-            // RefuelingDate = DateTime.Now,
-            // FuelType = Library.Enums.FuelType.Pb95E10,
-            // PricePerLiter = 2,
-            // RefueledLitersAmount = 2
+            CarId = null,
+            UserId = new Guid(),
+            GasStationId = 1,
+            RefuelingDate = DateTime.Now,
         };
 
     protected override async Task OnParametersSetAsync()
@@ -75,13 +71,10 @@ else
         if (Id is null)
         {
             await ApiService.PostAsync("/invoice/Create", invoice);
-            // await http.PostAsJsonAsync("/invoice", invoice);
         }
         else
         {
-            await ApiService.PostAsync($"/invoice/{Id}", invoice);
-            // await http.PutAsJsonAsync($"/invoice/{Id}", invoice);
-
+            await ApiService.PutAsync($"/invoice/Update/{Id}", invoice);
         }
         NavigationManager.NavigateTo("/history");
     }

@@ -5,50 +5,50 @@ namespace FuelChampion.Library.Enums;
 public enum Voivodeship
 {
     [Description("Dolnośląskie")]
-    Dolnoslaskie,
+    Dolnoslaskie = 1,
 
     [Description("Kujawsko-Pomorskie")]
-    KujawskoPomorskie,
+    KujawskoPomorskie = 2,
 
     [Description("Lubelskie")]
-    Lubelskie,
+    Lubelskie = 4,
 
     [Description("Lubuskie")]
-    Lubuskie,
+    Lubuskie = 8,
 
     [Description("Łódzkie")]
-    Lodzkie,
+    Lodzkie = 16,
 
     [Description("Małopolskie")]
-    Malopolskie,
+    Malopolskie = 32,
 
     [Description("Mazowieckie")]
-    Mazowieckie,
+    Mazowieckie = 64,
 
     [Description("Opolskie")]
-    Opolskie,
+    Opolskie = 128,
 
     [Description("Podkarpackie")]
-    Podkarpackie,
+    Podkarpackie = 256,
 
     [Description("Podlaskie")]
-    Podlaskie,
+    Podlaskie = 512,
 
     [Description("Pomorskie")]
-    Pomorskie,
+    Pomorskie = 1024,
 
     [Description("Śląskie")]
-    Slaskie,
+    Slaskie = 2048,
 
     [Description("Świętokrzyskie")]
-    Swietokrzyskie,
+    Swietokrzyskie = 4092,
 
     [Description("Warmińsko-Mazurskie")]
-    WarminskoMazurskie,
+    WarminskoMazurskie = 8184,
 
     [Description("Wielkopolskie")]
-    Wielkopolskie,
+    Wielkopolskie = 16368,
 
     [Description("Zachodniopomorskie")]
-    Zachodniopomorskie
+    Zachodniopomorskie = 32736,
 }

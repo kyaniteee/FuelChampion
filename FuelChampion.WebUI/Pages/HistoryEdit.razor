@@ -17,7 +17,7 @@ else
 <EditForm Model="invoice" OnSubmit="HandleSubmit">
     <div>
         <label for="refuelingDate">Data</label>
-        <InputDate id="refuelingDate" @bind-Value="invoice.RefuelingDate" class="form-control" />
+        <InputDate Type="InputDateType.DateTimeLocal"  id="refuelingDate" @bind-Value="invoice.RefuelingDate" class="form-control" />
     </div>
     <div>
         <label for="fuelType">Typ</label>

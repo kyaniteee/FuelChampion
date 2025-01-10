@@ -67,6 +67,25 @@ public class InvoiceController : ControllerBase
         return CreatedAtRoute("GetAuthorById", new { id = invoice.Id }, invoice);
     }
 
+    [HttpPut("Update/{id}", Name = nameof(UpdateInvoiceId))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult> UpdateInvoiceId(int id, [FromBody] Invoice invoice)
+    {
+        if (invoice == null || id <= 0)
+            BadRequest();
+
+        var existingInvoice = await _repository.GetAsync(i => i.Id == id, true);
+        if (existingInvoice == null)
+            return NotFound();
+
+        _repository.UpdateAsync(invoice);
+
+        return NoContent();
+    }
+
     [HttpPut("Update", Name = nameof(UpdateInvoice))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,7 +96,7 @@ public class InvoiceController : ControllerBase
         if (invoice == null || invoice.Id <= 0)
             BadRequest();
 
-        var existingInvoice = await _repository.GetAsync(author => author.Id == invoice.Id, true);
+        var existingInvoice = await _repository.GetAsync(i => i.Id == invoice.Id, true);
         if (existingInvoice == null)
             return NotFound();
 

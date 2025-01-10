@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject ApiService ApiService
+@using FuelChampion.Library.Extensions
 @using FuelChampion.Library.Models.Gas
 @using FuelChampion.WebUI.Services
 
@@ -27,10 +28,10 @@ else
             {
                 <tr>
                     <td>@item.Voivodeship</td>
-                    <td>@item.PricePerLiterAvgPb95?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
-                    <td>@item.PricePerLiterAvgPb98?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
-                    <td>@item.PricePerLiterAvgDiesel?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
-                    <td>@item.PricePerLiterAvgLpg?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td>@item.PricePerLiterAvgPb95.ToStringPLN()</td>
+                    <td>@item.PricePerLiterAvgPb98.ToStringPLN()</td>
+                    <td>@item.PricePerLiterAvgDiesel.ToStringPLN()</td>
+                    <td>@item.PricePerLiterAvgLpg.ToStringPLN()</td>
                 </tr>
             }
         </tbody>

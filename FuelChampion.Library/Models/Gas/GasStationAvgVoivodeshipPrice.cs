@@ -1,9 +1,13 @@
-﻿namespace FuelChampion.Library.Models.Gas;
+﻿using FuelChampion.Library.Enums;
+using FuelChampion.Library.Extensions;
+
+namespace FuelChampion.Library.Models.Gas;
 
 
 public class GasStationAvgVoivodeshipPrice
 {
-    public string? Voivodeship { get; set; }
+    public Voivodeship? Voivodeship { get; set; }
+    public string? VoivodeshipDescription => Voivodeship.ToDescription();
     public decimal? PricePerLiterAvgLpg { get; set; }
     public decimal? PricePerLiterAvgPb95 { get; set; }
     public decimal? PricePerLiterAvgPb98 { get; set; }

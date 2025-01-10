@@ -1,4 +1,5 @@
 ﻿@page "/"
+
 @inject ApiService ApiService
 
 <PageTitle>Strona główna</PageTitle>
@@ -23,7 +24,7 @@ else
             @foreach (var item in data)
             {
                 <tr>
-                    <td>@item.Voivodeship</td>
+                    <td>@item.VoivodeshipDescription</td>
                     <td>@item.PricePerLiterAvgPb95.ToStringPLN()</td>
                     <td>@item.PricePerLiterAvgPb98.ToStringPLN()</td>
                     <td>@item.PricePerLiterAvgDiesel.ToStringPLN()</td>

@@ -6,11 +6,11 @@ namespace FuelChampion.Library.Extensions;
 
 public static class EnumExtensions
 {
-    public static string ToDescription(this Enum value)
+    public static string? ToDescription(this Enum? value)
     {
-        FieldInfo field = value.GetType().GetField(value.ToString());
-        DescriptionAttribute attribute = field.GetCustomAttribute<DescriptionAttribute>();
-        return attribute?.Description ?? value.ToString();
+        FieldInfo field = value?.GetType()?.GetField(value.ToString());
+        DescriptionAttribute attribute = field?.GetCustomAttribute<DescriptionAttribute>();
+        return attribute?.Description ?? value?.ToString();
     }
 
     public static IList<EnumModel<T>> ToList<T>() where T : Enum

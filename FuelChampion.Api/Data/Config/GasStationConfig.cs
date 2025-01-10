@@ -1,4 +1,5 @@
-﻿using FuelChampion.Library.Models.Gas;
+﻿using FuelChampion.Library.Enums;
+using FuelChampion.Library.Models.Gas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,13 +18,13 @@ public class GasStationConfig : IEntityTypeConfiguration<GasStation>
 
         int id = 1;
         builder.HasData(
-            new() { Id = id++, City = "Lublin", Address = "ul. METALURGICZNA 1C", Name = "Shell", Voivodeship = "Lubelskie", },
-            new() { Id = id++, City = "Parczew", Address = "ul. Hutnicza 3", Name = "Stacja Paliw w Parczewie", Voivodeship = "Lubelskie", },
-            new() { Id = id++, City = "Lublin", Address = "ul. Hutnicza 3", Name = "Stacja Paliw w Lublinie", Voivodeship = "Lubelskie", },
-            new() { Id = id++, City = "Lublin", Address = "ul. Łęczyńska 58", Name = "Stacja LPG Łęczyńska", Voivodeship = "Lubelskie", },
-            new() { Id = id++, City = "Lublin", Address = "ul. Puławska 38", Name = "TEZET Sp. z o.o.", Voivodeship = "Lubelskie", },
-            new() { Id = id++, City = "Lublin", Address = "ul. Frezerów 3", Name = "Stacja Auto-Gazu", Voivodeship = "Lubelskie", },
-            new() { Id = id++, City = "Lublin", Address = "ul. Tulipanowa 72", Name = "Władysław Wasiluk - PETRO-BUD-GAZ", Voivodeship = "Lubelskie", }
+            new() { Id = id++, City = "Lublin", Address = "ul. METALURGICZNA 1C", Name = "Shell", Voivodeship = Voivodeship.Lubelskie, },
+            new() { Id = id++, City = "Parczew", Address = "ul. Hutnicza 3", Name = "Stacja Paliw w Parczewie", Voivodeship = Voivodeship.Lubelskie, },
+            new() { Id = id++, City = "Lublin", Address = "ul. Hutnicza 3", Name = "Stacja Paliw w Lublinie", Voivodeship = Voivodeship.Lubelskie, },
+            new() { Id = id++, City = "Lublin", Address = "ul. Łęczyńska 58", Name = "Stacja LPG Łęczyńska", Voivodeship = Voivodeship.Lubelskie, },
+            new() { Id = id++, City = "Lublin", Address = "ul. Puławska 38", Name = "TEZET Sp. z o.o.", Voivodeship = Voivodeship.Lubelskie, },
+            new() { Id = id++, City = "Lublin", Address = "ul. Frezerów 3", Name = "Stacja Auto-Gazu", Voivodeship = Voivodeship.Lubelskie, },
+            new() { Id = id++, City = "Lublin", Address = "ul. Tulipanowa 72", Name = "Władysław Wasiluk - PETRO-BUD-GAZ", Voivodeship = Voivodeship.Lubelskie, }
         );
     }
 }

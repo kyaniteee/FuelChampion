@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FuelChampion.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,8 @@ namespace FuelChampion.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Voivodeship = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -75,6 +77,7 @@ namespace FuelChampion.Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Voivodeship = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     City = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
@@ -90,14 +93,14 @@ namespace FuelChampion.Api.Migrations
                 {
                     Invoice_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CarId = table.Column<int>(type: "int", maxLength: 10, nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 10, nullable: false),
-                    GasStationId = table.Column<int>(type: "int", maxLength: 10, nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", maxLength: 20, nullable: false),
-                    PricePerLiter = table.Column<decimal>(type: "decimal(18,2)", maxLength: 20, nullable: true),
-                    RefuelingDate = table.Column<DateTime>(type: "datetime2", maxLength: 20, nullable: false),
-                    RefueledLitersAmount = table.Column<decimal>(type: "decimal(18,2)", maxLength: 20, nullable: false),
-                    FuelType = table.Column<int>(type: "int", maxLength: 20, nullable: false)
+                    CarId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GasStationId = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PricePerLiter = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    RefuelingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RefueledLitersAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FuelType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,22 +218,22 @@ namespace FuelChampion.Api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "211e38fa-a88e-4dc8-be64-1495d6901207", null, "User", "USER" },
-                    { "49a5ee71-e1fa-4453-ad53-f55203f05a53", null, "Admin", "ADMIN" }
+                    { "597032b5-8d43-4531-8b71-4793ca625423", null, "User", "USER" },
+                    { "c7c4508c-d87d-42c2-ab59-bebebb643a4d", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "GasStations",
-                columns: new[] { "Id", "Address", "City", "Name" },
+                columns: new[] { "Id", "Address", "City", "Name", "Voivodeship" },
                 values: new object[,]
                 {
-                    { 1, "ul. METALURGICZNA 1C", "Lublin", "Shell" },
-                    { 2, "ul. Hutnicza 3", "Parczew", "Stacja Paliw w Parczewie" },
-                    { 3, "ul. Hutnicza 3", "Lublin", "Stacja Paliw w Lublinie" },
-                    { 4, "ul. Łęczyńska 58", "Lublin", "Stacja LPG Łęczyńska" },
-                    { 5, "ul. Puławska 38", "Lublin", "TEZET Sp. z o.o." },
-                    { 6, "ul. Frezerów 3", "Lublin", "Stacja Auto-Gazu" },
-                    { 7, "ul. Tulipanowa 72", "Lublin", "Władysław Wasiluk - PETRO-BUD-GAZ" }
+                    { 1, "ul. METALURGICZNA 1C", "Lublin", "Shell", 4 },
+                    { 2, "ul. Hutnicza 3", "Parczew", "Stacja Paliw w Parczewie", 4 },
+                    { 3, "ul. Hutnicza 3", "Lublin", "Stacja Paliw w Lublinie", 4 },
+                    { 4, "ul. Łęczyńska 58", "Lublin", "Stacja LPG Łęczyńska", 4 },
+                    { 5, "ul. Puławska 38", "Lublin", "TEZET Sp. z o.o.", 4 },
+                    { 6, "ul. Frezerów 3", "Lublin", "Stacja Auto-Gazu", 4 },
+                    { 7, "ul. Tulipanowa 72", "Lublin", "Władysław Wasiluk - PETRO-BUD-GAZ", 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -238,8 +241,8 @@ namespace FuelChampion.Api.Migrations
                 columns: new[] { "Invoice_id", "CarId", "FuelType", "GasStationId", "PricePerLiter", "RefueledLitersAmount", "RefuelingDate", "TotalPrice", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, 2, 1, 5.00m, 40m, new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 200.00m, new Guid("e0544c1a-898a-4449-b2b9-33b93d5da266") },
-                    { 2, 1, 2, 2, 5.50m, 54m, new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 300.00m, new Guid("5f4455aa-6a9c-41d2-896b-9bbcc5416768") }
+                    { 1, 1, 2, 1, 5.00m, 40m, new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 200.00m, new Guid("9a0dd9c6-0cba-413f-ac45-be87c498f42e") },
+                    { 2, 1, 2, 2, 5.50m, 54m, new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 300.00m, new Guid("cb6aedbc-9333-442e-9e56-8b7a9c8f0e87") }
                 });
 
             migrationBuilder.CreateIndex(

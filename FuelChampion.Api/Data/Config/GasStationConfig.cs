@@ -14,7 +14,7 @@ public class GasStationConfig : IEntityTypeConfiguration<GasStation>
         builder.Property(a => a.Name).IsRequired().HasMaxLength(128).HasColumnName(nameof(GasStation.Name));
         builder.Property(a => a.City).IsRequired().HasMaxLength(128).HasColumnName(nameof(GasStation.City));
         builder.Property(a => a.Address).IsRequired().HasMaxLength(256).HasColumnName(nameof(GasStation.Address));
-        builder.Property(a => a.Voivodeship).IsRequired().HasMaxLength(128).HasColumnName(nameof(GasStation.Voivodeship));
+        builder.Property(a => a.Voivodeship).IsRequired().HasColumnName(nameof(GasStation.Voivodeship));
 
         int id = 1;
         builder.HasData(

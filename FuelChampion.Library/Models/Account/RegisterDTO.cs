@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FuelChampion.Library.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace FuelChampion.Library.Models.Account;
 
@@ -14,6 +15,6 @@ public class RegisterDto
     [Required]
     public string? Password { get; set; }
 
-    public string? Voivodeship { get; set; }
+    public Voivodeship? Voivodeship { get; set; }
     public string? City { get; set; }
 }

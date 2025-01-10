@@ -20,7 +20,10 @@ public class AccountController : ControllerBase
         _signInManager = signInManager;
     }
 
-    [HttpPost(nameof(Register))]
+    [HttpPost("Register", Name = nameof(Register))]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Register([FromBody] RegisterDto registerDTO)
     {
         try

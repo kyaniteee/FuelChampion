@@ -12,49 +12,15 @@ namespace FuelChampion.Api.Data.Config
             builder.ToTable("Invoices");
 
             builder.HasKey(c => c.Id);
-
-            builder.Property(c => c.Id)
-                .HasColumnName("Invoice_id");
-
-            builder.Property(c => c.CarId)
-                .IsRequired(false)
-                .HasMaxLength(10)
-                .HasColumnName("CarId");
-
-            builder.Property(c => c.UserId)
-                .IsRequired()
-                .HasMaxLength(10)
-                .HasColumnName("UserId");
-
-            builder.Property(c => c.GasStationId)
-                .HasMaxLength(10)
-                .IsRequired()
-                .HasColumnName("GasStationId");
-
-            builder.Property(c => c.TotalPrice)
-                .HasMaxLength(20)
-                .IsRequired()
-                .HasColumnName("TotalPrice");
-
-            builder.Property(c => c.PricePerLiter)
-                .HasMaxLength(20)
-                .IsRequired(false)
-                .HasColumnName("PricePerLiter");
-
-            builder.Property(c => c.RefuelingDate)
-                .HasMaxLength(20)
-                .IsRequired()
-                .HasColumnName("RefuelingDate");
-
-            builder.Property(c => c.RefueledLitersAmount)
-                .HasMaxLength(20)
-                .IsRequired()
-                .HasColumnName("RefueledLitersAmount");
-
-            builder.Property(c => c.FuelType)
-                .HasMaxLength(20)
-                .IsRequired()
-                .HasColumnName("FuelType");
+            builder.Property(c => c.Id).HasColumnName("Invoice_id");
+            builder.Property(c => c.CarId).IsRequired(false).HasColumnName("CarId");
+            builder.Property(c => c.UserId).IsRequired().HasColumnName("UserId");
+            builder.Property(c => c.GasStationId).IsRequired().HasColumnName("GasStationId");
+            builder.Property(c => c.TotalPrice).IsRequired().HasColumnName("TotalPrice");
+            builder.Property(c => c.PricePerLiter).IsRequired(false).HasColumnName("PricePerLiter");
+            builder.Property(c => c.RefuelingDate).IsRequired().HasColumnName("RefuelingDate");
+            builder.Property(c => c.RefueledLitersAmount).IsRequired().HasColumnName("RefueledLitersAmount");
+            builder.Property(c => c.FuelType).IsRequired().HasColumnName("FuelType");
 
             builder.HasData(
             new()

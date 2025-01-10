@@ -23,6 +23,8 @@
 
     async Task HandleSubmit()
     {
-        await ApiService.PostAsJsonAsync("/Login", User);
+        HttpContent httpContent = JsonContent.Create(User);
+        // await ApiService.PostAsJsonAsync("/Login", User);
+        // await ApiService.PostAsync("/Login", User);
     }
 }

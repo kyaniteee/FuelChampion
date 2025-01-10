@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelChampion.Api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20250106171111_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250110202916_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace FuelChampion.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FuelChampion.Api.Models.Car", b =>
+            modelBuilder.Entity("FuelChampion.Library.Models.Car", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace FuelChampion.Api.Migrations
                     b.ToTable("Cars", (string)null);
                 });
 
-            modelBuilder.Entity("FuelChampion.Api.Models.GasStation", b =>
+            modelBuilder.Entity("FuelChampion.Library.Models.Gas.GasStation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,6 +92,10 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnType("nvarchar(128)")
                         .HasColumnName("Name");
 
+                    b.Property<int>("Voivodeship")
+                        .HasColumnType("int")
+                        .HasColumnName("Voivodeship");
+
                     b.HasKey("Id");
 
                     b.ToTable("GasStations", (string)null);
@@ -102,53 +106,82 @@ namespace FuelChampion.Api.Migrations
                             Id = 1,
                             Address = "ul. METALURGICZNA 1C",
                             City = "Lublin",
-                            Name = "Shell"
+                            Name = "Shell",
+                            Voivodeship = 4
                         },
                         new
                         {
                             Id = 2,
                             Address = "ul. Hutnicza 3",
                             City = "Parczew",
-                            Name = "Stacja Paliw w Parczewie"
+                            Name = "Stacja Paliw w Parczewie",
+                            Voivodeship = 4
                         },
                         new
                         {
                             Id = 3,
                             Address = "ul. Hutnicza 3",
                             City = "Lublin",
-                            Name = "Stacja Paliw w Lublinie"
+                            Name = "Stacja Paliw w Lublinie",
+                            Voivodeship = 4
                         },
                         new
                         {
                             Id = 4,
                             Address = "ul. Łęczyńska 58",
                             City = "Lublin",
-                            Name = "Stacja LPG Łęczyńska"
+                            Name = "Stacja LPG Łęczyńska",
+                            Voivodeship = 4
                         },
                         new
                         {
                             Id = 5,
                             Address = "ul. Puławska 38",
                             City = "Lublin",
-                            Name = "TEZET Sp. z o.o."
+                            Name = "TEZET Sp. z o.o.",
+                            Voivodeship = 4
                         },
                         new
                         {
                             Id = 6,
                             Address = "ul. Frezerów 3",
                             City = "Lublin",
-                            Name = "Stacja Auto-Gazu"
+                            Name = "Stacja Auto-Gazu",
+                            Voivodeship = 4
                         },
                         new
                         {
                             Id = 7,
                             Address = "ul. Tulipanowa 72",
                             City = "Lublin",
-                            Name = "Władysław Wasiluk - PETRO-BUD-GAZ"
+                            Name = "Władysław Wasiluk - PETRO-BUD-GAZ",
+                            Voivodeship = 4
                         });
                 });
 
-            modelBuilder.Entity("FuelChampion.Api.Models.Invoice", b =>
+            modelBuilder.Entity("FuelChampion.Library.Models.Gas.GasStationAvgVoivodeshipPrice", b =>
+                {
+                    b.Property<decimal?>("PricePerLiterAvgDiesel")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("PricePerLiterAvgLpg")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("PricePerLiterAvgPb95")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("PricePerLiterAvgPb98")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("Voivodeship")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("GasStationAvgVoivodeshipPrices", (string)null);
+                });
+
+            modelBuilder.Entity("FuelChampion.Library.Models.Invoice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -158,42 +191,34 @@ namespace FuelChampion.Api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("CarId")
-                        .HasMaxLength(10)
                         .HasColumnType("int")
                         .HasColumnName("CarId");
 
                     b.Property<int>("FuelType")
-                        .HasMaxLength(20)
                         .HasColumnType("int")
                         .HasColumnName("FuelType");
 
                     b.Property<int>("GasStationId")
-                        .HasMaxLength(10)
                         .HasColumnType("int")
                         .HasColumnName("GasStationId");
 
                     b.Property<decimal?>("PricePerLiter")
-                        .HasMaxLength(20)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("PricePerLiter");
 
                     b.Property<decimal>("RefueledLitersAmount")
-                        .HasMaxLength(20)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("RefueledLitersAmount");
 
                     b.Property<DateTime>("RefuelingDate")
-                        .HasMaxLength(20)
                         .HasColumnType("datetime2")
                         .HasColumnName("RefuelingDate");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasMaxLength(20)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("TotalPrice");
 
                     b.Property<Guid>("UserId")
-                        .HasMaxLength(10)
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("UserId");
 
@@ -212,7 +237,7 @@ namespace FuelChampion.Api.Migrations
                             RefueledLitersAmount = 40m,
                             RefuelingDate = new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 200.00m,
-                            UserId = new Guid("e0544c1a-898a-4449-b2b9-33b93d5da266")
+                            UserId = new Guid("9a0dd9c6-0cba-413f-ac45-be87c498f42e")
                         },
                         new
                         {
@@ -224,17 +249,20 @@ namespace FuelChampion.Api.Migrations
                             RefueledLitersAmount = 54m,
                             RefuelingDate = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 300.00m,
-                            UserId = new Guid("5f4455aa-6a9c-41d2-896b-9bbcc5416768")
+                            UserId = new Guid("cb6aedbc-9333-442e-9e56-8b7a9c8f0e87")
                         });
                 });
 
-            modelBuilder.Entity("FuelChampion.Api.Models.User", b =>
+            modelBuilder.Entity("FuelChampion.Library.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -280,6 +308,9 @@ namespace FuelChampion.Api.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("Voivodeship")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -322,13 +353,13 @@ namespace FuelChampion.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "49a5ee71-e1fa-4453-ad53-f55203f05a53",
+                            Id = "c7c4508c-d87d-42c2-ab59-bebebb643a4d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "211e38fa-a88e-4dc8-be64-1495d6901207",
+                            Id = "597032b5-8d43-4531-8b71-4793ca625423",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -451,7 +482,7 @@ namespace FuelChampion.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("FuelChampion.Api.Models.User", null)
+                    b.HasOne("FuelChampion.Library.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -460,7 +491,7 @@ namespace FuelChampion.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("FuelChampion.Api.Models.User", null)
+                    b.HasOne("FuelChampion.Library.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -475,7 +506,7 @@ namespace FuelChampion.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FuelChampion.Api.Models.User", null)
+                    b.HasOne("FuelChampion.Library.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -484,7 +515,7 @@ namespace FuelChampion.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("FuelChampion.Api.Models.User", null)
+                    b.HasOne("FuelChampion.Library.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

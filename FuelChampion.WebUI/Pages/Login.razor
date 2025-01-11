@@ -45,12 +45,12 @@
     {
         // HttpContent httpContent = JsonContent.Create(User);
         errorMessage = null;
-        await ApiService.PostAsJsonAsyncHttpResponse<LoginDto>("/UserLogin", User).ContinueWith(async x =>
+        await ApiService.PostAsJsonAsyncHttpResponse<LoginDto>("/UserLogin", User).ContinueWith(x =>
         {
             if (x.Result.IsSuccessStatusCode)
             {
                 var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
-                await customAuthStateProvider.UpdateAuthenticationState(x.Result.Headers.ToString());
+                customAuthStateProvider.UpdateAuthenticationState(string.Empty);
                 NavigationManager.NavigateTo("/", forceLoad: true);
             }
             else

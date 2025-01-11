@@ -68,7 +68,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost(nameof(UserLogin), Name = nameof(UserLogin))]
-    public async Task<IActionResult> UserLogin(LoginDto loginDTO)
+    public async Task<IActionResult> UserLogin([FromBody] LoginDto loginDTO)
     {
         try
         {
@@ -85,12 +85,13 @@ public class AccountController : ControllerBase
             if (!result.Succeeded)
                 return Unauthorized("User not found and/or password incorrect.");
 
+            var token = _tokenService.CreateToken(user);
             return Ok(
                 new NewUserDTO
                 {
                     UserName = user.UserName,
                     Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
+                    Token = token
                 }
             );
         }

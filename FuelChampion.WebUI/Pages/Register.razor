@@ -42,11 +42,11 @@
     async Task HandleSubmit()
     {
         HttpContent httpContent = JsonContent.Create(User);
-        await ApiService.PostAsync<User>("/Register", httpContent).ContinueWith(x =>
+        await ApiService.PostAsync<User>("/UserRegister", httpContent).ContinueWith(x =>
         {
             if (x.Result.IsSuccessStatusCode)
             {
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/history");
             }
             else
             { 

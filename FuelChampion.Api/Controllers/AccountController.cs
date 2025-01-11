@@ -21,11 +21,11 @@ public class AccountController : ControllerBase
         _signInManager = signInManager;
     }
 
-    [HttpPost("Register", Name = nameof(Register))]
+    [HttpPost(nameof(UserRegister), Name = nameof(UserRegister))]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Register([FromBody] RegisterDto registerDTO)
+    public async Task<IActionResult> UserRegister([FromBody] RegisterDto registerDTO)
     {
         try
         {
@@ -64,8 +64,8 @@ public class AccountController : ControllerBase
         }
     }
 
-    [HttpPost(nameof(Login))]
-    public async Task<IActionResult> Login(LoginDto loginDTO)
+    [HttpPost(nameof(UserLogin), Name = nameof(UserLogin))]
+    public async Task<IActionResult> UserLogin(LoginDto loginDTO)
     {
         try
         {

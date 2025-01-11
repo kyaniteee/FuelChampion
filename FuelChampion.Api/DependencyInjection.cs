@@ -35,10 +35,10 @@ public static class DependencyInjection
 
     private static IServiceCollection AddAuth(this IServiceCollection services)
     {
+        services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
         services.AddAuthentication(COOKIES).AddCookie();
         services.AddAuthorization();
-        services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-
+        services.AddAuthorizationBuilder();
         return services;
     }
 
@@ -84,7 +84,7 @@ public static class DependencyInjection
     private static IServiceCollection ConfigureIdentity(this IServiceCollection services)
     {
 #if DEBUG
-        services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DBContext>();
+        services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DBContext>().AddApiEndpoints();
 #else
         services.AddIdentity<User, IdentityRole>(options =>
         {
@@ -93,8 +93,10 @@ public static class DependencyInjection
             options.Password.RequireLowercase = true;
             options.Password.RequireDigit = true;
         })
-        .AddEntityFrameworkStores<DBContext>();
+        .AddEntityFrameworkStores<DBContext>().AddApiEndpoints();
 #endif
+
+        
 
         //services.AddIdentity<FuelChampion.Library.Models.User, IdentityRole>()
         //                    .AddEntityFrameworkStores<DBContext>()

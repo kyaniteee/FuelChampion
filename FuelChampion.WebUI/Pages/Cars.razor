@@ -1,0 +1,59 @@
+﻿@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+@page "/cars"
+
+<PageTitle>Moje samochody</PageTitle>
+
+@if (cars is null)
+{
+    <span>Ładowanie danych...</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producent</th>
+                <th>Model</th>
+                <th>Rok</th>
+                <th>Rejestracja</th>
+                <th>VIN</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in cars)
+            {
+                <tr>
+                    <td>@car.Producent</td>
+                    <td>@car.Model</td>
+                    <td>@car.ProductionYear</td>
+                    <td>@car.RegistrationNumber</td>
+                    <td>@car.VIN?.ToUpper()</td>
+                    <td><button @onclick="() => EditCar(car.Id)" class="btn btn-secondary">Edytuj</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p>
+    <button @onclick="AddNewCar" class="btn btn-primary">Dodaj</button>
+</p>
+
+@code {
+    private List<Car> cars = new List<Car>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        cars = await ApiService.GetAsync<List<Car>>("/Car/Cars");
+    }
+
+    private async Task AddNewCar()
+    {
+        NavigationManager.NavigateTo("/Car/Create");
+    }
+
+    void EditCar(int id) => NavigationManager.NavigateTo($"/Car/{id}");
+}

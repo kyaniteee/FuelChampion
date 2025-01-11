@@ -1,5 +1,4 @@
-﻿using FuelChampion.Library.Models;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -16,7 +15,7 @@ namespace FuelChampion.Api.Services
             _key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["JWT:SigningKey"]));
         }
 
-        public string CreateToken(User user)
+        public string CreateToken(Library.Models.User user)
         {
             var claims = new List<Claim>
             {

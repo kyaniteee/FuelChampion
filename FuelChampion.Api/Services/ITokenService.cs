@@ -1,9 +1,7 @@
-﻿using FuelChampion.Library.Models;
-
-namespace FuelChampion.Api.Services
+﻿namespace FuelChampion.Api.Services
 {
     public interface ITokenService
     {
-        string CreateToken(User user);
+        string CreateToken(Library.Models.User user);
     }
 }

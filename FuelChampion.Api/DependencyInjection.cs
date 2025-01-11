@@ -1,6 +1,7 @@
 ﻿using FuelChampion.Api.Data;
 using FuelChampion.Api.Repositories;
 using FuelChampion.Api.Services;
+using FuelChampion.Api.Services.User;
 using FuelChampion.Library.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -29,6 +30,7 @@ public static class DependencyInjection
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
 
         return services;

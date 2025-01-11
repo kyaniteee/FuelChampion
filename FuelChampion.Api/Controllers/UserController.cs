@@ -1,5 +1,4 @@
-﻿using FuelChampion.Api.Repositories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace FuelChampion.Api.Controllers;
 
@@ -8,9 +7,23 @@ namespace FuelChampion.Api.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserRepository _repository;
-
-    public UserController(IUserRepository repository)
+    private readonly IUserService _userService;
+    public UserController(IUserRepository repository, IUserService userService)
     {
         _repository = repository;
+        _userService = userService;
+    }
+
+    [HttpGet(nameof(GetCurrentUser), Name = nameof(GetCurrentUser))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<User>> GetCurrentUser()
+    {
+        var result = await _userService.GetUserAsync();
+
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        return Ok(result);
     }
 }

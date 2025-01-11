@@ -1,6 +1,5 @@
 ﻿using FuelChampion.Api.Repositories;
 using FuelChampion.Library.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuelChampion.Api.Controllers;
@@ -15,6 +14,19 @@ public class CarController : ControllerBase
     public CarController(ICarRepository repository)
     {
         _repository = repository;
+    }
+
+    [HttpGet("Cars/{userId}", Name = nameof(GetCarsByUserId))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<IList<Car>>> GetCarsByUserId(string userId)
+    {
+        var result = await _repository.GetAllByUserIdAsync(userId);
+
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        return Ok(result);
     }
 
     [HttpGet("Cars", Name = nameof(GetCars))]

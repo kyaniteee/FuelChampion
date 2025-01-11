@@ -3,6 +3,7 @@
 @inject AuthenticationStateProvider AuthStateProvider
 
 @page "/Logowanie"
+@using Newtonsoft.Json
 
 <PageTitle>Logowanie</PageTitle>
 
@@ -45,12 +46,14 @@
     {
         // HttpContent httpContent = JsonContent.Create(User);
         errorMessage = null;
-        await ApiService.PostAsJsonAsyncHttpResponse<LoginDto>("/UserLogin", User).ContinueWith(x =>
+        await ApiService.PostAsJsonAsyncHttpResponse<LoginDto>("/UserLogin", User).ContinueWith(async x =>
         {
             if (x.Result.IsSuccessStatusCode)
             {
                 var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
-                customAuthStateProvider.UpdateAuthenticationState(string.Empty);
+                string response = await x.Result.Content.ReadAsStringAsync();
+                var loginResponse = JsonConvert.DeserializeObject<NewUserDTO>(response);
+                customAuthStateProvider.UpdateAuthenticationState(loginResponse?.Token);
                 NavigationManager.NavigateTo("/", forceLoad: true);
             }
             else

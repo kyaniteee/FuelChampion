@@ -1,11 +1,9 @@
 ﻿using FuelChampion.Api.Repositories;
 using FuelChampion.Library.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuelChampion.Api.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class InvoiceController : ControllerBase

@@ -57,7 +57,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        cars = await ApiService.GetAsync<List<Car>>("/Car/Cars");
+        var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+        cars = await ApiService.GetAsync<List<Car>>($"/Car/Cars/{userId.ToString()}");
     }
 
     private async Task AddNewCar()

@@ -56,7 +56,6 @@ else
             VIN = null,
             Model = null,
             Producent = null,
-            UserId = Guid.NewGuid(),
             RegistrationNumber = null,
             ProductionYear = DateTime.Now.Year,
         };
@@ -75,6 +74,8 @@ else
 
     async Task HandleSubmit()
     {
+        car.UserId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+
         if (Id is null)
         {
             await ApiService.PostAsJsonAsync("/Car/Create", car);

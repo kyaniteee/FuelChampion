@@ -2,6 +2,7 @@
 @page "/invoice/{id:int}"
 @inject ApiService ApiService
 @inject NavigationManager NavigationManager
+
 @attribute [Authorize]
 
 @if (Id is null)
@@ -57,7 +58,7 @@ else
     Invoice invoice = new Invoice
         {
             CarId = null,
-            UserId = new Guid(),
+
             GasStationId = 1,
             RefuelingDate = DateTime.Now,
         };
@@ -76,6 +77,8 @@ else
 
     async Task HandleSubmit()
     {
+        invoice.UserId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+
         if (Id is null)
         {
             await ApiService.PostAsJsonAsync("/invoice/Create", invoice);

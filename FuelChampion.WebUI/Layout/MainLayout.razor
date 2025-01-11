@@ -1,7 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using Newtonsoft.Json
+@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
-@* @inject AuthenticationStateProvider AuthenticationStateProvider *@
 @inject ApiService ApiService
+@inject AuthenticationStateProvider AuthStateProvider
 
 <div class="page">
     <div class="sidebar">
@@ -10,30 +11,19 @@
 
     <main>
         <div class="top-row px-4">
-            @if (IsLoggedIn)
-            {
-                <a style="font: bold; font-family: Arial" href="/Logowanie">Profil</a>
-                <a style="color: red; font: bold; font-family: Arial" href="/logut">Wyloguj</a>
-            }
-            else
-            {
-                <a style="color: seagreen; font: bold; font-family: Arial" href="/Logowanie">Zaloguj się</a>
-                <a style="font: bold; font-family: Arial" href="/Rejestracja">Załóż konto</a>
-            }
-
-            @*             <AuthorizeView>
+            <AuthorizeView>
                 <NotAuthorized>
-                    <a href="/Rejestracja">Rejestracja</a>
-                    <a href="/Logowanie">Logowanie</a>
+                    <a style="color: seagreen; font: bold; font-family: Arial" href="/Logowanie">Zaloguj się</a>
+                    <a style="font: bold; font-family: Arial" href="/Rejestracja">Załóż konto</a>
                 </NotAuthorized>
             </AuthorizeView>
 
             <AuthorizeView>
                 <Authorized>
-                    <a href="/Logowanie">Profil</a>
-                    <a href="/logut">Wyloguj</a>
+                    <a style="font: bold; font-family: Arial" href="/Logowanie">Profil</a>
+                    <a style="color: red; font: bold; font-family: Arial" @onclick="Logout" href="/">Wyloguj</a>
                 </Authorized>
-            </AuthorizeView> *@
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
@@ -45,19 +35,15 @@
 
 @code
 {
-    private bool IsLoggedIn = false;
-
     protected override async Task OnInitializedAsync()
     {
         // var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var authState = await ApiService.GetAsync<AuthenticationState>("/AuthState");
-
-        IsLoggedIn = authState.User.Identity?.IsAuthenticated ?? false;
     }
 
     private async Task Logout()
     {
-        // await ApiService.GetAsync<AuthenticationState>("/AuthState");
-        // NavigationManager.NavigateTo("/");
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+        customAuthStateProvider.UpdateAuthenticationState(string.Empty);
     }
 }

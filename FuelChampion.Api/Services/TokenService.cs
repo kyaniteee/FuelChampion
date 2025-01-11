@@ -20,7 +20,8 @@ namespace FuelChampion.Api.Services
             var claims = new List<Claim>
             {
                 new(JwtRegisteredClaimNames.Email, user.Email),
-                new(JwtRegisteredClaimNames.GivenName, user.UserName)
+                new(JwtRegisteredClaimNames.GivenName, user.UserName),
+                new(JwtRegisteredClaimNames.Sub, user.Id),
             };
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

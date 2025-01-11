@@ -1,14 +1,14 @@
 ﻿using FuelChampion.Api.Services;
 using FuelChampion.Library.Models;
 using FuelChampion.Library.Models.Account;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FuelChampion.Api.Controllers;
 
+[ApiController]
+[Microsoft.AspNetCore.Components.Route("[controller]")]
 public class AccountController : ControllerBase
 {
     private readonly UserManager<User> _userManager;
@@ -52,12 +52,14 @@ public class AccountController : ControllerBase
             if (!roleResult.Succeeded)
                 return BadRequest(roleResult.Errors);
 
+            var token = _tokenService.CreateToken(appUser);
+                  
             return Ok(
                   new NewUserDTO
                   {
                       UserName = appUser.UserName,
                       Email = appUser.Email,
-                      Token = _tokenService.CreateToken(appUser)
+                      Token = token,
                   }
             );
         }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FuelChampion.Api.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CarController : ControllerBase

@@ -6,12 +6,12 @@
 
 @if (Id is null)
 {
-    <PageTitle>Dodaj samochód</PageTitle>
-    <h3>Dodaj samochód</h3>
+    <PageTitle>Dodaj pojazd</PageTitle>
+    <h3>Dodaj pojazd</h3>
 }
 else
 {
-    <PageTitle>Edytuj dane o samochodzie: @car.Producent, @car.Model, @car.ProductionYear, @car.RegistrationNumber?.ToUpper()</PageTitle>
+    <PageTitle>Edycja pojazdu</PageTitle>
     <h3>Edytuj dane o samochodzie: @car.Producent, @car.Model, @car.ProductionYear, @car.RegistrationNumber?.ToUpper()</h3>
 }
 

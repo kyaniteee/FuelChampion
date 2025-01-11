@@ -21,8 +21,15 @@ public static class DependencyInjection
         services.AddRepositories();
         services.ConfigureCors();
         services.ConfigureMappingProfiles();
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddServices();
         services.AddAuth();
+        return services;
+    }
+
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        services.AddScoped<ITokenService, TokenService>();
+
         return services;
     }
 

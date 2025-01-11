@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace FuelChampion.WebUI.Services;
@@ -35,4 +36,9 @@ public class ApiService
         var response = await _httpClient.PutAsJsonAsync(endpoint, data);
         return response.IsSuccessStatusCode;
     }
+
+    //public async Task<HttpResponseMessage> GetAuthenticationStateAsync()
+    //{
+    //    return await _httpClient.GetAsync<AuthenticationState>("/AuthState");
+    //}
 }

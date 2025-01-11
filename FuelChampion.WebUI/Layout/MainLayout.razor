@@ -1,4 +1,8 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@* @inject AuthenticationStateProvider AuthenticationStateProvider *@
+@inject ApiService ApiService
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -6,8 +10,30 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="/Rejestracja">Rejestracja</a>
-            <a href="/Logowanie">Logowanie</a>
+            @if (IsLoggedIn)
+            {
+                <a href="/Logowanie">Profil</a>
+                <a href="/logut">Wyloguj</a>
+            }
+            else
+            {
+                <a href="/Rejestracja">Rejestracja</a>
+                <a href="/Logowanie">Logowanie</a>
+            }
+
+            @*             <AuthorizeView>
+                <NotAuthorized>
+                    <a href="/Rejestracja">Rejestracja</a>
+                    <a href="/Logowanie">Logowanie</a>
+                </NotAuthorized>
+            </AuthorizeView>
+
+            <AuthorizeView>
+                <Authorized>
+                    <a href="/Logowanie">Profil</a>
+                    <a href="/logut">Wyloguj</a>
+                </Authorized>
+            </AuthorizeView> *@
         </div>
 
         <article class="content px-4">
@@ -19,5 +45,19 @@
 
 @code
 {
-    
+    private bool IsLoggedIn = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var authState = await ApiService.GetAsync<AuthenticationState>("/AuthState");
+
+        IsLoggedIn = authState.User.Identity?.IsAuthenticated ?? false;
+    }
+
+    private async Task Logout()
+    {
+        // await ApiService.GetAsync<AuthenticationState>("/AuthState");
+        // NavigationManager.NavigateTo("/");
+    }
 }

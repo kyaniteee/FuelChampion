@@ -2,6 +2,7 @@
 using FuelChampion.Library.Models;
 using FuelChampion.Library.Models.Account;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,14 @@ public class AccountController : ControllerBase
     private readonly UserManager<User> _userManager;
     private readonly ITokenService _tokenService;
     private readonly SignInManager<User> _signInManager;
+    //private readonly CustomAuthenticationStateProvider _authenticationStateProvider;
 
-    public AccountController(UserManager<User> userManager, ITokenService tokenService, SignInManager<User> signInManager)
+    public AccountController(UserManager<User> userManager, ITokenService tokenService, SignInManager<User> signInManager)//, CustomAuthenticationStateProvider authenticationStateProvider)
     {
         _userManager = userManager;
         _tokenService = tokenService;
         _signInManager = signInManager;
+        //_authenticationStateProvider = authenticationStateProvider;
     }
 
     [HttpPost(nameof(UserRegister), Name = nameof(UserRegister))]
@@ -96,6 +99,19 @@ public class AccountController : ControllerBase
             return BadRequest(e);
         }
     }
+
+    //[HttpGet("/AuthState")]
+    //public async Task<AuthenticationState> GetAuthenticationStateAsync()
+    //{
+    //    try
+    //    {
+    //        return await _authenticationStateProvider.GetAuthenticationStateAsync();
+    //    }
+    //    catch (Exception e)
+    //    {
+    //        throw;
+    //    }
+    //}
 }
 
 

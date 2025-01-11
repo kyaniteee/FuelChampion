@@ -12,13 +12,13 @@
         <div class="top-row px-4">
             @if (IsLoggedIn)
             {
-                <a href="/Logowanie">Profil</a>
-                <a href="/logut">Wyloguj</a>
+                <a style="font: bold; font-family: Arial" href="/Logowanie">Profil</a>
+                <a style="color: red; font: bold; font-family: Arial" href="/logut">Wyloguj</a>
             }
             else
             {
-                <a href="/Rejestracja">Rejestracja</a>
-                <a href="/Logowanie">Logowanie</a>
+                <a style="color: seagreen; font: bold; font-family: Arial" href="/Logowanie">Zaloguj się</a>
+                <a style="font: bold; font-family: Arial" href="/Rejestracja">Załóż konto</a>
             }
 
             @*             <AuthorizeView>

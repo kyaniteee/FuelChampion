@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace FuelChampion.WebUI.Services;
 
@@ -22,10 +23,10 @@ public class ApiService
         return response.IsSuccessStatusCode;
     }
 
-    public async Task<bool> PostAsync<T>(string endpoint, HttpContent httpContent)
+    public async Task<HttpResponseMessage> PostAsync<T>(string endpoint, HttpContent httpContent)
     {
         var response = await _httpClient.PostAsync(endpoint, httpContent);
-        return response.IsSuccessStatusCode;
+        return response;
     }
 
 

@@ -1,15 +1,16 @@
 ﻿@inject ApiService ApiService
 @inject NavigationManager NavigationManager
+@attribute [Authorize];
 
 @page "/history"
 
-<PageTitle>Historia</PageTitle>
+<PageTitle>Moje tankowania</PageTitle>
 
-<h3>Historia tankowań:</h3>
+<h3>Moje tankowania</h3>
 
 @if (invoices is null)
 {
-    <span>Ładowanie historii...</span>
+    <span>Ładowanie danych...</span>
 }
 else
 {
@@ -28,11 +29,11 @@ else
             @foreach (var invoice in invoices)
             {
                 <tr>
-                    <td>@invoice.RefuelingDate.ToString("HH.mm:ss dd.MM.yyyy")</td>
+                    <td>@invoice.RefuelingDate.ToString("dd.MM.yyyy HH:mm")</td>
                     <td>@invoice.RefueledLitersAmount</td>
                     <td>@invoice.FuelType</td>
-                    <td>@invoice.PricePerLiter?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
-                    <td>@invoice.TotalPrice?.ToString("0.00 zł", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td>@invoice.PricePerLiter.ToStringPLN()</td>
+                    <td>@invoice.TotalPrice.ToStringPLN()</td>
                     <td><button @onclick="() => EditInvoice(invoice.Id)" class="btn btn-secondary">Edytuj</button></td>
                 </tr>
             }
@@ -40,7 +41,7 @@ else
     </table>
 }
 <p>
-    <button @onclick="AddNewInvoice" class="btn btn-primary">Dodaj nowy paragon</button>
+    <button @onclick="AddNewInvoice" class="btn btn-primary">Dodaj</button>
 </p>
 
 @code {

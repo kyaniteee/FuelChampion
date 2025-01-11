@@ -1,6 +1,7 @@
 ﻿using FuelChampion.Api.Services;
 using FuelChampion.Library.Models;
 using FuelChampion.Library.Models.Account;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -55,7 +56,7 @@ public class AccountController : ControllerBase
                       Email = appUser.Email,
                       Token = _tokenService.CreateToken(appUser)
                   }
-              );
+            );
         }
         catch (Exception e)
         {

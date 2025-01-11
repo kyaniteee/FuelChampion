@@ -1,6 +1,8 @@
 ﻿using FuelChampion.Api.Data;
 using FuelChampion.Api.Repositories;
+using FuelChampion.Api.Services;
 using FuelChampion.Library.Models;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -10,8 +12,30 @@ namespace FuelChampion.Api;
 public static class DependencyInjection
 {
     public const string DEFAULT_POLICY = "AllowBlazor";
+    public const string COOKIES = "Cookies";
 
-    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    public static IServiceCollection Configuration(this IServiceCollection services, string connectionString)
+    {
+        services.AddContext(connectionString);
+        services.ConfigureIdentity();
+        services.AddRepositories();
+        services.ConfigureCors();
+        services.ConfigureMappingProfiles();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddAuth();
+        return services;
+    }
+
+    private static IServiceCollection AddAuth(this IServiceCollection services)
+    {
+        services.AddAuthentication(COOKIES).AddCookie();
+        services.AddAuthorization();
+        services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddTransient<ICarRepository, CarRepository>();
         services.AddTransient<IUserRepository, UserRepository>();
@@ -21,14 +45,14 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddContext(this IServiceCollection services, string connectionString)
+    private static IServiceCollection AddContext(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<DBContext>(options => options.UseSqlServer(connectionString)
                                                            .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
         return services;
     }
 
-    public static IServiceCollection ConfigureCors(this IServiceCollection services)
+    private static IServiceCollection ConfigureCors(this IServiceCollection services)
     {
         services.AddCors(options =>
         {
@@ -43,15 +67,18 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection ConfigureMappingProfiles(this IServiceCollection services)
+    private static IServiceCollection ConfigureMappingProfiles(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfile));
 
         return services;
     }
 
-    public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
+    private static IServiceCollection ConfigureIdentity(this IServiceCollection services)
     {
+#if DEBUG
+        services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DBContext>();
+#else
         services.AddIdentity<User, IdentityRole>(options =>
         {
             options.Password.RequiredLength = 7;
@@ -60,6 +87,7 @@ public static class DependencyInjection
             options.Password.RequireDigit = true;
         })
         .AddEntityFrameworkStores<DBContext>();
+#endif
 
         //services.AddIdentity<FuelChampion.Library.Models.User, IdentityRole>()
         //                    .AddEntityFrameworkStores<DBContext>()

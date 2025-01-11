@@ -8,7 +8,7 @@
 <EditForm Model="User" OnValidSubmit="HandleSubmit">
     <div>
         <label for="userName">Nazwa użytkownika:</label>
-        <InputText id="userName" @bind-Value="User.UserName" class="form-control"/>
+        <InputText id="userName" @bind-Value="User.UserName" class="form-control" />
     </div>
     <div>
         <label for="email">E-mail:</label>
@@ -20,7 +20,7 @@
     </div>
     <div>
         <label for="voivodeship">Województwo</label>
-        <InputSelect id="voivodeship" @bind-Value="User.Voivodeship" class="form-control" DisplayName="Wybierz województwo" >
+        <InputSelect id="voivodeship" @bind-Value="User.Voivodeship" class="form-control" DisplayName="Wybierz województwo">
             <option value=""></option>
             @foreach (var voievodeship in EnumExtensions.ToList<Voivodeship>())
             {
@@ -42,8 +42,17 @@
     async Task HandleSubmit()
     {
         HttpContent httpContent = JsonContent.Create(User);
-
-        await ApiService.PostAsync<User>("/Register", httpContent);
+        await ApiService.PostAsync<User>("/Register", httpContent).ContinueWith(x =>
+        {
+            if (x.Result.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("/");
+            }
+            else
+            { 
+               // todo: komunikaty
+            }
+        });
     }
 
 }

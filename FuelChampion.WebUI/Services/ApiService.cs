@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-using System.Net.Http;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 
 namespace FuelChampion.WebUI.Services;
 
@@ -22,6 +20,12 @@ public class ApiService
     {
         var response = await _httpClient.PostAsJsonAsync(endpoint, data);
         return response.IsSuccessStatusCode;
+    }
+
+    public async Task<HttpResponseMessage> PostAsJsonAsyncHttpResponse<T>(string endpoint, T data)
+    {
+        var response = await _httpClient.PostAsJsonAsync(endpoint, data);
+        return response;
     }
 
     public async Task<HttpResponseMessage> PostAsync<T>(string endpoint, HttpContent httpContent)

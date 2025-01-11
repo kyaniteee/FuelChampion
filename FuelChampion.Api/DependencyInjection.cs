@@ -1,15 +1,11 @@
 ﻿using FuelChampion.Api.Data;
 using FuelChampion.Api.Repositories;
 using FuelChampion.Api.Services;
-using FuelChampion.Api.Services.User;
 using FuelChampion.Library.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
 namespace FuelChampion.Api;
@@ -133,7 +129,7 @@ public static class DependencyInjection
         {
             options.AddPolicy(DEFAULT_POLICY, policy =>
             {
-                policy.WithOrigins("https://localhost:7026", "http://localhost:5065").AllowAnyHeader().AllowAnyMethod();
+                policy.WithOrigins("https://localhost:7026", "http://localhost:5065").AllowAnyHeader().AllowAnyMethod().WithHeaders(HeaderNames.ContentType);
             });
         });
 

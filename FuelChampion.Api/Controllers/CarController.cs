@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FuelChampion.Api.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CarController : ControllerBase
@@ -69,6 +69,25 @@ public class CarController : ControllerBase
         return CreatedAtRoute(nameof(GetCar), new { id = car.Id }, car);
     }
 
+    [HttpPut("Update/{id}", Name = nameof(UpdateCarId))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult> UpdateCarId(int id, [FromBody] Car car)
+    {
+        if (car == null || id <= 0)
+            BadRequest();
+
+        var result = await _repository.GetAsync(x => x.Id == id, true);
+        if (result == null)
+            return NotFound();
+
+        _repository.UpdateAsync(car);
+
+        return NoContent();
+    }
+
     [HttpPut("Update", Name = nameof(UpdateCar))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -83,7 +102,7 @@ public class CarController : ControllerBase
         if (result == null)
             return NotFound();
 
-        _repository.UpdateAsync(result);
+        _repository.UpdateAsync(car);
 
         return NoContent();
     }

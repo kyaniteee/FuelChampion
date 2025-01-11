@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelChampion.Api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20250110203804_1001202521")]
-    partial class _1001202521
+    [Migration("20250111155010_110120251648")]
+    partial class _110120251648
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,10 +51,13 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("ProductionYear");
 
                     b.Property<string>("RegistrationNumber")
-                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)")
                         .HasColumnName("RegistrationNumber");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UserId");
 
                     b.Property<string>("VIN")
                         .HasMaxLength(17)
@@ -162,16 +165,24 @@ namespace FuelChampion.Api.Migrations
             modelBuilder.Entity("FuelChampion.Library.Models.Gas.GasStationAvgVoivodeshipPrice", b =>
                 {
                     b.Property<decimal?>("PricePerLiterAvgDiesel")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("PricePerLiterAvgDiesel");
 
                     b.Property<decimal?>("PricePerLiterAvgLpg")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("PricePerLiterAvgLpg");
 
                     b.Property<decimal?>("PricePerLiterAvgPb95")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("PricePerLiterAvgPb95");
 
                     b.Property<decimal?>("PricePerLiterAvgPb98")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
+                        .HasColumnName("PricePerLiterAvgPb98");
 
                     b.Property<int?>("Voivodeship")
                         .HasColumnType("int");
@@ -203,11 +214,13 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("GasStationId");
 
                     b.Property<decimal?>("PricePerLiter")
-                        .HasColumnType("decimal(18,2)")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
                         .HasColumnName("PricePerLiter");
 
                     b.Property<decimal>("RefueledLitersAmount")
-                        .HasColumnType("decimal(18,2)")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
                         .HasColumnName("RefueledLitersAmount");
 
                     b.Property<DateTime>("RefuelingDate")
@@ -215,7 +228,8 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("RefuelingDate");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)")
                         .HasColumnName("TotalPrice");
 
                     b.Property<Guid>("UserId")
@@ -237,7 +251,7 @@ namespace FuelChampion.Api.Migrations
                             RefueledLitersAmount = 40m,
                             RefuelingDate = new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 200.00m,
-                            UserId = new Guid("062f2ad9-ef51-4293-bdef-1ff6c79f5634")
+                            UserId = new Guid("97bec6ea-36e9-4a4b-b476-5f66b835ba4e")
                         },
                         new
                         {
@@ -249,7 +263,7 @@ namespace FuelChampion.Api.Migrations
                             RefueledLitersAmount = 54m,
                             RefuelingDate = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 300.00m,
-                            UserId = new Guid("c2936301-f3b9-4e50-b016-0e70e35e6ec1")
+                            UserId = new Guid("9d672cb8-4922-4d66-875e-1057fb170ce7")
                         });
                 });
 
@@ -353,13 +367,13 @@ namespace FuelChampion.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "99eb4504-4d5a-47e8-b003-3d9610c48c68",
+                            Id = "4c154cbe-bd98-4488-b579-e7a1000e696d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c00b6e04-c665-4e51-80d2-2a44b975f648",
+                            Id = "1fde280d-b3ea-49ba-b5de-d336bf6caca5",
                             Name = "User",
                             NormalizedName = "USER"
                         });

@@ -16,10 +16,10 @@ namespace FuelChampion.Api.Data.Config
             builder.Property(c => c.CarId).IsRequired(false).HasColumnName("CarId");
             builder.Property(c => c.UserId).IsRequired().HasColumnName("UserId");
             builder.Property(c => c.GasStationId).IsRequired().HasColumnName("GasStationId");
-            builder.Property(c => c.TotalPrice).IsRequired().HasPrecision(2).HasColumnName("TotalPrice");
-            builder.Property(c => c.PricePerLiter).IsRequired(false).HasPrecision(2).HasColumnName("PricePerLiter");
+            builder.Property(c => c.TotalPrice).IsRequired().HasPrecision(10, 2).HasColumnName("TotalPrice");
+            builder.Property(c => c.PricePerLiter).IsRequired(false).HasPrecision(10, 2).HasColumnName("PricePerLiter");
             builder.Property(c => c.RefuelingDate).IsRequired().HasColumnName("RefuelingDate");
-            builder.Property(c => c.RefueledLitersAmount).IsRequired().HasPrecision(2).HasColumnName("RefueledLitersAmount");
+            builder.Property(c => c.RefueledLitersAmount).IsRequired().HasPrecision(10, 2).HasColumnName("RefueledLitersAmount");
             builder.Property(c => c.FuelType).IsRequired().HasColumnName("FuelType");
 
             builder.HasData(

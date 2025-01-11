@@ -17,7 +17,7 @@ public class CarController : ControllerBase
         _repository = repository;
     }
 
-    [HttpGet()]
+    [HttpGet("Cars", Name = nameof(GetCars))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IEnumerable<Car>>> GetCars()

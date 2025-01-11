@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FuelChampion.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class _110120251648 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,7 +32,7 @@ namespace FuelChampion.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Voivodeship = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Voivodeship = table.Column<int>(type: "int", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -60,10 +60,11 @@ namespace FuelChampion.Api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Producent = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     Model = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     ProductionYear = table.Column<int>(type: "int", maxLength: 4, nullable: false),
-                    RegistrationNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    RegistrationNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
                     VIN = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true)
                 },
                 constraints: table =>
@@ -96,10 +97,10 @@ namespace FuelChampion.Api.Migrations
                     CarId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GasStationId = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PricePerLiter = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    PricePerLiter = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
                     RefuelingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RefueledLitersAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RefueledLitersAmount = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     FuelType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -218,8 +219,8 @@ namespace FuelChampion.Api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "597032b5-8d43-4531-8b71-4793ca625423", null, "User", "USER" },
-                    { "c7c4508c-d87d-42c2-ab59-bebebb643a4d", null, "Admin", "ADMIN" }
+                    { "1fde280d-b3ea-49ba-b5de-d336bf6caca5", null, "User", "USER" },
+                    { "4c154cbe-bd98-4488-b579-e7a1000e696d", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -241,8 +242,8 @@ namespace FuelChampion.Api.Migrations
                 columns: new[] { "Invoice_id", "CarId", "FuelType", "GasStationId", "PricePerLiter", "RefueledLitersAmount", "RefuelingDate", "TotalPrice", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, 2, 1, 5.00m, 40m, new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 200.00m, new Guid("9a0dd9c6-0cba-413f-ac45-be87c498f42e") },
-                    { 2, 1, 2, 2, 5.50m, 54m, new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 300.00m, new Guid("cb6aedbc-9333-442e-9e56-8b7a9c8f0e87") }
+                    { 1, 1, 2, 1, 5.00m, 40m, new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 200.00m, new Guid("97bec6ea-36e9-4a4b-b476-5f66b835ba4e") },
+                    { 2, 1, 2, 2, 5.50m, 54m, new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 300.00m, new Guid("9d672cb8-4922-4d66-875e-1057fb170ce7") }
                 });
 
             migrationBuilder.CreateIndex(

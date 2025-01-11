@@ -1,0 +1,57 @@
+﻿@page "/car/"
+@page "/car/{id:int}"
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+
+@if (Id is null)
+{
+    <PageTitle>Dodaj</PageTitle>
+}
+else
+{
+    <PageTitle>Edytuj @car.Producent, @car.Model, @car.ProductionYear, @car.RegistrationNumber?.ToUpper()</PageTitle>
+}
+
+<EditForm Model="car" OnSubmit="HandleSubmit">
+
+    <button type="submit" class="btn btn-primary">Dodaj</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    Car car = new Car
+        {
+            VIN = null,
+            Model = null,
+            Producent = null,
+            UserId = Guid.NewGuid(),
+            RegistrationNumber = null,
+            ProductionYear = DateTime.Now.Year,
+        };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is not null)
+        {
+            var result = await ApiService.GetAsync<Car>($"/Car/{Id}");
+            if (result is not null)
+            {
+                car = result;
+            }
+        }
+    }
+
+    async Task HandleSubmit()
+    {
+        if (Id is null)
+        {
+            await ApiService.PostAsJsonAsync("/Car/Create", car);
+        }
+        else
+        {
+            await ApiService.PutAsync($"/Car/Update/{Id}", car);
+        }
+        NavigationManager.NavigateTo("/cars");
+    }
+}

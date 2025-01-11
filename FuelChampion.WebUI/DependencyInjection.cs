@@ -8,6 +8,12 @@ public static class DependencyInjection
     {
         services.AddClient();
         services.AddServices();
+
+        //services.AddOidcAuthentication(options =>
+        //{
+        //    builder.Configuration.Bind("OidcProvider", options.ProviderOptions);
+        //});
+
         return services;
     }
 

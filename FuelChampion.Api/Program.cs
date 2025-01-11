@@ -1,5 +1,7 @@
 using FuelChampion.Api;
+using FuelChampion.Library.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -22,10 +24,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapIdentityApi<User>();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+#if DEBUG
+app.MapGet("/test", (ClaimsPrincipal user) => $"Hello {user.Identity!.Name}").RequireAuthorization();
+#endif
 
 app.Run();

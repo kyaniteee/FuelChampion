@@ -22,9 +22,9 @@ else
     <div>
         <label for="fuelType">Typ</label>
         <InputSelect id="fuelType" @bind-Value="invoice.FuelType" class="form-control">
-            @foreach (var type in Enum.GetValues(typeof(FuelType)))
+            @foreach (var fuelType in EnumExtensions.ToList<FuelType>())
             {
-                <option value="@type">@type</option>
+                <option value="@fuelType.Value">@fuelType.Description</option>
             }
         </InputSelect>
     </div>
@@ -33,7 +33,7 @@ else
         <InputNumber id="pricePerLiter" @bind-Value="invoice.PricePerLiter" class="form-control" />
     </div>
     <div>
-        <label for="refueledLitersAmount">Ile litrów</label>
+        <label for="refueledLitersAmount">Ilość</label>
         <InputNumber id="refueledLitersAmount" @bind-Value="invoice.RefueledLitersAmount" class="form-control" />
     </div>
     <div>

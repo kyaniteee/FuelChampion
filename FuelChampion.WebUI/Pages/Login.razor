@@ -5,21 +5,38 @@
 <PageTitle>Logowanie</PageTitle>
 <h3>Logowanie</h3>
 
-<EditForm Model="User" OnValidSubmit="HandleSubmit">
-    <div>
-        <label for="login">Nazwa użytkownika:</label>
-        <InputText id="login" @bind-Value="User.UserName" class="form-control" />
+<div class="row">
+    <div class="col-lg-4 offset-lg-4 pt-4 pb-4  border">
+        <EditForm Model="User" OnValidSubmit="HandleSubmit" FormName="LoginForm">
+            <DataAnnotationsValidator />
+            <div class="mb-3">
+                <label for="login">Nazwa użytkownika:</label>
+                <InputText id="login" @bind-Value="User.UserName" class="form-control" />
+                <ValidationMessage For="() => User.UserName"></ValidationMessage>
+            </div>
+            <div class ="mb-3">
+                <label for="password">Hasło:</label>
+                <InputText type="password" id="password" @bind-Value="User.Password" class="form-control" />
+                <ValidationMessage For="() => User.Password"></ValidationMessage>
+            </div> <br />
+            <div class="mb-3 text-center">
+                <span class="text-danger">@errorMessage</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Logowanie</button>
+        </EditForm>
     </div>
-    <div>
-        <label for="password">Hasło:</label>
-        <InputText type="password" id="password" @bind-Value="User.Password" class="form-control" />
-    </div> <br />
-    <button type="submit" class="btn btn-primary">Logowanie</button>
-</EditForm>
+</div>
+
 
 @code {
-    public int? Id { get; set; }
     public LoginDto User = new LoginDto();
+    public int? Id { get; set; }
+    private string? errorMessage;
+
+    private async Task Authenticate()
+    {
+        // var userAccount = ApiService.GetAsync("/user");
+    }
 
     async Task HandleSubmit()
     {

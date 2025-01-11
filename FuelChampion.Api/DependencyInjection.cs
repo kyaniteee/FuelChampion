@@ -2,6 +2,7 @@
 using FuelChampion.Api.Repositories;
 using FuelChampion.Api.Services;
 using FuelChampion.Library.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,14 @@ public static class DependencyInjection
     private static IServiceCollection AddAuth(this IServiceCollection services)
     {
         services.AddAuthentication(COOKIES).AddCookie();
+        //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+        //{
+        //    options.Cookie.Name = "auth_token";
+        //    options.LoginPath = "/login";
+        //    options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
+        //    options.AccessDeniedPath = "/access-denied";
+        //});
+        //services.AddCascadingAuthenticationState();
         services.AddAuthorization();
         services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 

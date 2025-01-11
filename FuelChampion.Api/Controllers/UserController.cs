@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FuelChampion.Api.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FuelChampion.Api.Controllers;
 
@@ -6,4 +7,10 @@ namespace FuelChampion.Api.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
+    private readonly IUserRepository _repository;
+
+    public UserController(IUserRepository repository)
+    {
+        _repository = repository;
+    }
 }

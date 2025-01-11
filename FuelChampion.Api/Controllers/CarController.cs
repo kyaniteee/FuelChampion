@@ -1,15 +1,17 @@
 ﻿using FuelChampion.Api.Repositories;
 using FuelChampion.Library.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FuelChampion.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class CarController : ControllerBase
 {
     private readonly ICarRepository _repository;
-
+    
     public CarController(ICarRepository repository)
     {
         _repository = repository;

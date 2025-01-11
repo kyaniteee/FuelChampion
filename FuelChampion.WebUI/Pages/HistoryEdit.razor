@@ -2,6 +2,7 @@
 @page "/invoice/{id:int}"
 @inject ApiService ApiService
 @inject NavigationManager NavigationManager
+@attribute [Authorize]
 
 @if (Id is null)
 {
@@ -40,7 +41,7 @@ else
         <label for="totalPrice">Cena całkowita</label>
         <InputNumber id="totalPrice" @bind-Value="invoice.TotalPrice" class="form-control" />
     </div> <br />
-    <button type="submit" class="btn btn-primary">Dodaj</button>
+    <button type="submit" class="btn btn-primary">Zapisz</button>
 </EditForm>
 
 @code {

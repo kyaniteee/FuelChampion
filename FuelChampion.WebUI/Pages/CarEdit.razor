@@ -2,19 +2,46 @@
 @page "/car/{id:int}"
 @inject ApiService ApiService
 @inject NavigationManager NavigationManager
+@attribute [Authorize]
 
 @if (Id is null)
 {
-    <PageTitle>Dodaj</PageTitle>
+    <PageTitle>Dodaj samochód</PageTitle>
+    <h3>Dodaj samochód</h3>
 }
 else
 {
-    <PageTitle>Edytuj @car.Producent, @car.Model, @car.ProductionYear, @car.RegistrationNumber?.ToUpper()</PageTitle>
+    <PageTitle>Edytuj dane o samochodzie: @car.Producent, @car.Model, @car.ProductionYear, @car.RegistrationNumber?.ToUpper()</PageTitle>
+    <h3>Edytuj dane o samochodzie: @car.Producent, @car.Model, @car.ProductionYear, @car.RegistrationNumber?.ToUpper()</h3>
 }
 
 <EditForm Model="car" OnSubmit="HandleSubmit">
-
-    <button type="submit" class="btn btn-primary">Dodaj</button>
+    <div class="mb-3">
+        <label for="producent">Producent:</label>
+        <InputText id="producent" @bind-Value="car.Producent" class="form-control" />
+        <ValidationMessage For="() => car.Producent"></ValidationMessage>
+    </div>
+    <div class="mb-3">
+        <label for="model">Model:</label>
+        <InputText id="model" @bind-Value="car.Model" class="form-control" />
+        <ValidationMessage For="() => car.Model"></ValidationMessage>
+    </div>
+    <div class="mb-3">
+        <label for="productionYear">Rok:</label>
+        <InputNumber id="productionYear" @bind-Value="car.ProductionYear" class="form-control" />
+        <ValidationMessage For="() => car.ProductionYear"></ValidationMessage>
+    </div>
+    <div class="mb-3">
+        <label for="registrationNumber">Numer rejestracyjny:</label>
+        <InputText id="registrationNumber" @bind-Value="car.RegistrationNumber" class="form-control" />
+        <ValidationMessage For="() => car.RegistrationNumber"></ValidationMessage>
+    </div>
+    <div class="mb-3">
+        <label for="vin">VIN:</label>
+        <InputText id="vin" @bind-Value="car.VIN" class="form-control" />
+        <ValidationMessage For="() => car.VIN"></ValidationMessage>
+    </div>
+    <button type="submit" class="btn btn-primary">Zapisz</button>
 </EditForm>
 
 @code {

@@ -1,5 +1,7 @@
 ﻿using FuelChampion.Api.Data;
 using FuelChampion.Api.Repositories;
+using FuelChampion.Library.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -44,6 +46,24 @@ public static class DependencyInjection
     public static IServiceCollection ConfigureMappingProfiles(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfile));
+
+        return services;
+    }
+
+    public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
+    {
+        services.AddIdentity<User, IdentityRole>(options =>
+        {
+            options.Password.RequiredLength = 7;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequireDigit = true;
+        })
+        .AddEntityFrameworkStores<DBContext>();
+
+        //services.AddIdentity<FuelChampion.Library.Models.User, IdentityRole>()
+        //                    .AddEntityFrameworkStores<DBContext>()
+        //                    .AddDefaultTokenProviders();
 
         return services;
     }

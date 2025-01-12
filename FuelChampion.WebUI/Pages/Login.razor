@@ -21,11 +21,8 @@
                 <label for="password">Hasło:</label>
                 <InputText type="password" id="password" @bind-Value="User.Password" class="form-control" />
                 <ValidationMessage For="() => User.Password"></ValidationMessage>
-            </div> <br />
-            <div class="mb-3 text-center">
-                <span class="text-danger">@errorMessage</span>
             </div>
-            <button type="submit" class="btn btn-primary">Logowanie</button>
+            <button type="submit" class="mb-3 btn btn-primary">Logowanie</button>
             <ValidationSummary class="text-danger"></ValidationSummary>
         </EditForm>
     </div>

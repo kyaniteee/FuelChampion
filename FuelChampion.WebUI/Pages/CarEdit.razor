@@ -46,6 +46,10 @@ else
             <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z" />
         </svg> Zapisz
     </button>
+    @if (Id is not null)
+    {
+        <button @onclick="DeleteCar" type="button" class="m-3 btn btn-danger">Usuń</button>
+    }
 </EditForm>
 
 @code {
@@ -84,6 +88,12 @@ else
         {
             await ApiService.PutAsync($"/Car/Update/{Id}", car);
         }
+        NavigationManager.NavigateTo("/cars");
+    }
+
+    private async Task DeleteCar(MouseEventArgs e)
+    {
+        await ApiService.DeleteAsync($"/Car/{Id}");
         NavigationManager.NavigateTo("/cars");
     }
 }

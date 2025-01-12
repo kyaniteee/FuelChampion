@@ -17,8 +17,8 @@ else
         <thead>
             <tr>
                 <th>Data</th>
-                <th>Litrów</th>
-                <th>Typ </th>
+                <th>Ilość w litrach</th>
+                <th>Rodzaj paliwa</th>
                 <th>Cena za litr</th>
                 <th>Cena całkowita</th>
                 <th></th>
@@ -30,7 +30,7 @@ else
                 <tr>
                     <td>@invoice.RefuelingDate.ToString("dd.MM.yyyy HH:mm")</td>
                     <td>@invoice.RefueledLitersAmount</td>
-                    <td>@invoice.FuelType</td>
+                    <td>@invoice.FuelType.ToDescription()</td>
                     <td>@invoice.PricePerLiter.ToStringPLN()</td>
                     <td>@invoice.TotalPrice.ToStringPLN()</td>
 

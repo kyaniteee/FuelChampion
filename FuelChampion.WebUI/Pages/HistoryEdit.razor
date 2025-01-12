@@ -17,6 +17,7 @@ else
 }
 
 <EditForm Model="invoice" OnSubmit="HandleSubmit">
+
     <div>
         <label for="refuelingDate">Data</label>
         <InputDate Type="InputDateType.DateTimeLocal" id="refuelingDate" @bind-Value="invoice.RefuelingDate" class="form-control" />
@@ -31,17 +32,32 @@ else
         </InputSelect>
     </div>
     <div>
-        <label for="pricePerLiter">Cena za litr</label>
-        <InputNumber id="pricePerLiter" @bind-Value="invoice.PricePerLiter" class="form-control" />
-    </div>
-    <div>
         <label for="refueledLitersAmount">Ilość</label>
         <InputNumber id="refueledLitersAmount" @bind-Value="invoice.RefueledLitersAmount" class="form-control" />
     </div>
     <div>
-        <label for="totalPrice">Cena całkowita</label>
+        <label for="totalPrice">Cena</label>
         <InputNumber id="totalPrice" @bind-Value="invoice.TotalPrice" class="form-control" />
-    </div> <br />
+    </div>
+    <div>
+        <label for="gasStation">Stacja paliw</label>
+        <InputSelect id="gasStation" @bind-Value="invoice.GasStationId" class="form-control">
+            @foreach (var gs in gasStations)
+            {
+                <option value="@gs.Id">@gs.Voivodeship?.ToDescription() | @gs.City | @gs.Address | @gs.Name</option>
+            }
+        </InputSelect>
+    </div>
+    <div>
+        <label for="car">Samochód</label>
+        <InputSelect id="car" @bind-Value="invoice.CarId" class="form-control">
+            @foreach (var car in cars)
+            {
+                <option value="@car.Id">@car.Producent | @car.Model | @car.ProductionYear | @car.RegistrationNumber</option>
+            }
+        </InputSelect>
+    </div>
+    <br />
 
 
     <button type="submit" class="btn btn-primary">
@@ -56,12 +72,21 @@ else
     [Parameter]
     public int? Id { get; set; }
     Invoice invoice = new Invoice
-        {
-            CarId = null,
+    {
+        RefuelingDate = DateTime.Now,
+    };
 
-            GasStationId = 1,
-            RefuelingDate = DateTime.Now,
-        };
+    public IList<Car> cars;
+    public IList<GasStation> gasStations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+        cars = await ApiService.GetAsync<List<Car>>($"/Car/Cars/{userId.ToString()}");
+        gasStations = await ApiService.GetAsync<IList<GasStation>>("/GasStation");
+
+        invoice.CarId = cars.FirstOrDefault()?.Id;
+    }
 
     protected override async Task OnParametersSetAsync()
     {
@@ -78,6 +103,8 @@ else
     async Task HandleSubmit()
     {
         invoice.UserId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+
+        invoice.PricePerLiter = invoice.TotalPrice / invoice.RefueledLitersAmount;
 
         if (Id is null)
         {

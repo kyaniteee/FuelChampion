@@ -40,6 +40,8 @@ public class AccountController : ControllerBase
                 UserName = registerDTO.UserName,
                 Email = registerDTO.Email,
                 Voivodeship = registerDTO.Voivodeship,
+                FirstName = registerDTO.FirstName,
+                SecondName = registerDTO.SecondName,
                 City = registerDTO.City,
             };
 

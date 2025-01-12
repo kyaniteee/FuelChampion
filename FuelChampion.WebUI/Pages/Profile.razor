@@ -1,0 +1,19 @@
+﻿@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+@page "/Profile"
+
+<h3>Profile</h3>
+
+
+
+@code {
+    public User User { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+        User = await ApiService.GetAsync<User>($"/User/{userId.ToString()}");
+    }
+}
+

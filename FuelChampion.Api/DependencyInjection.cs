@@ -25,7 +25,6 @@ public static class DependencyInjection
         services.ConfigureCors();
         services.ConfigureMappingProfiles();
         services.AddServices();
-        //services.AddAuth(configurationManager);
         return services;
     }
 
@@ -63,7 +62,6 @@ public static class DependencyInjection
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
-        //services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
 
         return services;
@@ -157,12 +155,6 @@ public static class DependencyInjection
         })
         .AddEntityFrameworkStores<DBContext>().AddApiEndpoints();
 #endif
-
-
-
-        //services.AddIdentity<FuelChampion.Library.Models.User, IdentityRole>()
-        //                    .AddEntityFrameworkStores<DBContext>()
-        //                    .AddDefaultTokenProviders();
 
         return services;
     }

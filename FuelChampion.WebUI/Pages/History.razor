@@ -1,8 +1,10 @@
-﻿@inject ApiService ApiService
+﻿@page "/history"
+@using GemBox.Spreadsheet
+@inject ApiService ApiService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 @attribute [Authorize]
 
-@page "/history"
 
 <PageTitle>Moje tankowania</PageTitle>
 <h3>Moje tankowania</h3>
@@ -56,10 +58,24 @@ else
         </svg>
         Dopisz
     </button>
+    <button class="btn btn-success float-end mx-5" @onclick="@ImportToExcel">Importuj do EXCEL</button>
 </p>
 
+<script>
+    function openFile(dataUrl) {
+    const newWindow = window.open();
+    if (newWindow) {
+    newWindow.document.write(`<iframe src="${dataUrl}" frameborder="0" style="width:100%;height:100%;"></iframe>`);
+    } else {
+    alert("Nie można otworzyć nowego okna. Upewnij się, że wyskakujące okna są dozwolone.");
+    }
+    }
+</script>
+
 @code {
-    private List<InvoiceView> invoices = new ();
+    private List<InvoiceView> invoices = new();
+
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,4 +85,44 @@ else
 
     private async Task AddNewInvoice() => NavigationManager.NavigateTo("/invoice");
     private void EditInvoice(int id) => NavigationManager.NavigateTo($"/invoice/{id}");
+
+    public async void ImportToExcel()
+    {
+        var workbook = new ExcelFile();
+        var sheet = workbook.Worksheets.Add("Sheet 1");
+
+        sheet.Cells["A1"].Value = "Stacja paliw";
+        sheet.Cells["B1"].Value = "Data";
+        sheet.Cells["C1"].Value = "Ilość w litrach";
+        sheet.Cells["D1"].Value = "Rodzaj paliwa";
+        sheet.Cells["E1"].Value = "Cena za litr";
+        sheet.Cells["F1"].Value = "Cena całkowita";
+        sheet.Cells["G1"].Value = "Samochód";
+
+        for (int i = 0; i < invoices.Count(); i++)
+        {
+            var invoice = invoices[i];
+            int cellIndex = i + 2;
+            sheet.Cells["A" + cellIndex].Value = invoice.GasStationName;
+            sheet.Cells["B" + cellIndex].Value = invoice.RefuelingDate.ToString("dd.MM.yyyy HH:mm");
+            sheet.Cells["C" + cellIndex].Value = invoice.RefueledLitersAmount;
+            sheet.Cells["D" + cellIndex].Value = invoice.FuelType.ToDescription();
+            sheet.Cells["E" + cellIndex].Value = invoice.PricePerLiter.ToStringPLN();
+            sheet.Cells["F" + cellIndex].Value = invoice.TotalPrice.ToStringPLN();
+            sheet.Cells["G" + cellIndex].Value = invoice.CarRegistrationNumber?.ToUpper();
+        }
+
+
+        using var stream = new MemoryStream();
+        workbook.Save(stream, SaveOptions.XlsxDefault);
+        await OpenFileFromStream(stream);
+    }
+
+    private async Task OpenFileFromStream(MemoryStream inputStream)
+    {
+        var base64 = Convert.ToBase64String(inputStream.ToArray());
+        var mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";//"text/plain"; // Zmień typ MIME, jeśli potrzebujesz np. application/pdf
+        var dataUrl = $"data:{mimeType};base64,{base64}";
+        await JSRuntime.InvokeVoidAsync("openFile", dataUrl);
+    }
 }

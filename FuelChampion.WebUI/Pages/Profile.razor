@@ -4,16 +4,30 @@
 
 @page "/Profile"
 
-<h3>Profile</h3>
+<PageTitle>Profil</PageTitle>
 
-
+<div class="text-center">
+    <h3>Użytkownik: @User.UserName</h3>
+    <br/>
+    @if (User.Voivodeship.HasValue)
+    {
+        <h4 class="text-center">Województwo: @User.Voivodeship?.ToDescription()</h4>
+    }
+    <h4 class="text-center">Liczba samochodów: @Cars.Count()</h4>
+    <h4 class="text-center">Liczba tankowań: @Invoices.Count()</h4>
+    <h4 class="text-center">Wydano: @Invoices.Sum(x=>x.TotalPrice).ToStringPLN()</h4>
+</div>
 
 @code {
     public User User { get; set; }
+    public IList<Car> Cars{ get; set; }
+    public IList<Invoice> Invoices{ get; set; }
     protected override async Task OnInitializedAsync()
     {
         var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
         User = await ApiService.GetAsync<User>($"/User/{userId.ToString()}");
+        Cars = await ApiService.GetAsync<List<Car>>($"/Car/Cars/{userId.ToString()}");
+        Invoices = await ApiService.GetAsync<List<Invoice>>($"/invoice/{userId.ToString()}");
     }
 }
 

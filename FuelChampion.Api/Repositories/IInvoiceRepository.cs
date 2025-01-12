@@ -4,5 +4,5 @@ namespace FuelChampion.Api.Repositories;
 
 public interface IInvoiceRepository : IRepositoryBase<Invoice>
 {
-
+    Task<ICollection<Invoice>> GetAllByUserIdAsync(string userId);
 }

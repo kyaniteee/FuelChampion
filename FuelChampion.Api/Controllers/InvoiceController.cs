@@ -28,6 +28,19 @@ public class InvoiceController : ControllerBase
         return Ok(invoice);
     }
 
+    [HttpGet("{userId}", Name= nameof(GetInvoicesByUserId))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<IList<Invoice>>> GetInvoicesByUserId(string userId)
+    {
+        var invoice = await _repository.GetAllByUserIdAsync(userId);
+
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        return Ok(invoice);
+    }
+
     [HttpGet("{id:int}", Name = nameof(GetInvoiceById))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

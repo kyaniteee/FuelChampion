@@ -59,7 +59,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        invoices = await ApiService.GetAsync<List<Invoice>>("/invoice");
+        var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+        invoices = await ApiService.GetAsync<List<Invoice>>($"/invoice/{userId.ToString()}");
     }
 
     private async Task AddNewInvoice()

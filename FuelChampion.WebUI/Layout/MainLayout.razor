@@ -19,7 +19,7 @@
 
                 <Authorized>
                     <a style="color: seagreen; font: bold; font-family: Arial" href="/invoice/">Dodaj tankowanie</a>
-                    <a style="font: bold; font-family: Arial" href="/Profile">Profil</a>
+                    <a style="font: bold; font-family: Arial" href="/Profile">Profil użytkownika</a>
                     <a style="color: red; font: bold; font-family: Arial" @onclick="Logout" href="/">Wyloguj</a>
                 </Authorized>
             </AuthorizeView>
@@ -36,7 +36,6 @@
 {
     protected override async Task OnInitializedAsync()
     {
-        // var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var authState = await ApiService.GetAsync<AuthenticationState>("/AuthState");
     }
 

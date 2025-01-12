@@ -18,6 +18,11 @@ public class RegisterDto
     [Required(ErrorMessage = "Hasło nie może być puste")]
     public string? Password { get; set; }
 
+    [Required]
+    public string? FirstName { get; set; }
+    [Required]
+    public string? SecondName { get; set; }
+
     public Voivodeship? Voivodeship { get; set; }
     public string? City { get; set; }
 }

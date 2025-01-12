@@ -13,6 +13,10 @@
     {
         <h4 class="text-center">Województwo: @User.Voivodeship?.ToDescription()</h4>
     }
+    @if (!string.IsNullOrWhiteSpace(User.City))
+    {
+        <h4 class="text-center">Miasto: @User.City</h4>
+    }
     <h4 class="text-center">Liczba samochodów: @Cars.Count()</h4>
     <h4 class="text-center">Liczba tankowań: @Invoices.Count()</h4>
     <h4 class="text-center">Wydano: @Invoices.Sum(x=>x.TotalPrice).ToStringPLN()</h4>

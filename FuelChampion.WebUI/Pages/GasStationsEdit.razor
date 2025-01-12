@@ -54,17 +54,20 @@ else
     {
 
     };
+    User User { get; set; }
 
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
-    //     gasStation.Voivodeship = cars.FirstOrDefault()?.Id;
-    // }
+    protected override async Task OnInitializedAsync()
+    {
+        var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+        User = await ApiService.GetAsync<User>($"/User/{userId.ToString()}");
+    }
 
     protected override async Task OnParametersSetAsync()
     {
         if (Id is null)
         {
+            gasStation.Voivodeship = User.Voivodeship;
+            gasStation.City = User.City;
             return;
         }
 

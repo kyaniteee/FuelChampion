@@ -4,6 +4,7 @@ using FuelChampion.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelChampion.Api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20250112132901_120120251428")]
+    partial class _120120251428
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,7 +251,7 @@ namespace FuelChampion.Api.Migrations
                             RefueledLitersAmount = 40m,
                             RefuelingDate = new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 200.00m,
-                            UserId = new Guid("6ff8423f-631d-41a3-9c4b-1e706809cb84")
+                            UserId = new Guid("4213a1fa-e290-444d-b11d-2bbbd8d75804")
                         },
                         new
                         {
@@ -260,7 +263,7 @@ namespace FuelChampion.Api.Migrations
                             RefueledLitersAmount = 54m,
                             RefuelingDate = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 300.00m,
-                            UserId = new Guid("e0bd7101-ecfa-47fc-bc09-b5b87ffa2a4e")
+                            UserId = new Guid("fd387e4b-f3b5-4321-bec2-d41995efd9bf")
                         });
                 });
 
@@ -275,16 +278,18 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("CarId");
 
                     b.Property<string>("CarModel")
+                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)")
                         .HasColumnName("CarModel");
 
                     b.Property<string>("CarProducent")
+                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)")
                         .HasColumnName("CarProducent");
 
-                    b.Property<int?>("CarProductionYear")
+                    b.Property<int>("CarProductionYear")
                         .HasMaxLength(4)
                         .HasColumnType("int")
                         .HasColumnName("CarProductionYear");
@@ -299,11 +304,13 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("FuelType");
 
                     b.Property<string>("GasStationAddress")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("GasStationAddress");
 
                     b.Property<string>("GasStationCity")
+                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
                         .HasColumnName("GasStationCity");
@@ -313,11 +320,12 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("GasStationId");
 
                     b.Property<string>("GasStationName")
+                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
                         .HasColumnName("GasStationName");
 
-                    b.Property<int?>("GasStationVoivodeship")
+                    b.Property<int>("GasStationVoivodeship")
                         .HasColumnType("int")
                         .HasColumnName("GasStationVoivodeship");
 
@@ -451,13 +459,13 @@ namespace FuelChampion.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e5fae11a-a8ce-4769-9b2e-b8f8871a04dd",
+                            Id = "d8ba7319-a6a0-4c57-8529-106ddf8f6190",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f1ed103e-7451-4c2f-9739-68be6e0f7c51",
+                            Id = "42979059-504b-499b-b6c0-46da9a11bcea",
                             Name = "User",
                             NormalizedName = "USER"
                         });

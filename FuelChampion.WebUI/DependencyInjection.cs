@@ -1,4 +1,5 @@
 ﻿using FuelChampion.WebUI.Services;
+using GemBox.Spreadsheet;
 
 namespace FuelChampion.WebUI.Server;
 
@@ -8,12 +9,13 @@ public static class DependencyInjection
     {
         services.AddClient();
         services.AddServices();
+        services.ConfigureGembox();
 
-        //services.AddOidcAuthentication(options =>
-        //{
-        //    builder.Configuration.Bind("OidcProvider", options.ProviderOptions);
-        //});
-
+        return services;
+    }
+    private static IServiceCollection ConfigureGembox(this IServiceCollection services)
+    {
+        SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
         return services;
     }
 

@@ -1,5 +1,4 @@
 ﻿using FuelChampion.Api.Repositories;
-using FuelChampion.Api.Services.User;
 using FuelChampion.Library.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,19 +9,28 @@ namespace FuelChampion.Api.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserRepository _repository;
-    private readonly IUserService _userService;
-    public UserController(IUserRepository repository, IUserService userService)
+    public UserController(IUserRepository repository)
     {
         _repository = repository;
-        _userService = userService;
     }
 
-    [HttpGet(nameof(GetCurrentUser), Name = nameof(GetCurrentUser))]
+    [HttpGet("{userId}", Name = nameof(GetUser))]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<User>> GetCurrentUser()
+    public async Task<ActionResult<User>> GetUser(string userId)
     {
-        var result = await _userService.GetUserAsync();
+        if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrEmpty(userId))
+        {
+            return BadRequest();
+        }
+
+        var result = await _repository.GetAsync(x => x.Id == userId);
+        if (result == null)
+        {
+            return NotFound($"The record with id: {userId} not found");
+        }
 
         if (!ModelState.IsValid)
             return BadRequest(ModelState);

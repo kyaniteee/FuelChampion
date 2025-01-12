@@ -81,6 +81,25 @@ public class GasStationController : ControllerBase
         return CreatedAtRoute(nameof(GetGasStation), new { id = gasStation.Id }, gasStation);
     }
 
+    [HttpPut("Update/{id:int}", Name = nameof(UpdateGasStationId))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult> UpdateGasStationId(int id, [FromBody] GasStation gasStation)
+    {
+        if (gasStation == null || id <= 0)
+            BadRequest();
+
+        var result = await _repository.GetAsync(x => x.Id == id, true);
+        if (result == null)
+            return NotFound();
+
+        _repository.UpdateAsync(gasStation);
+
+        return NoContent();
+    }
+
     [HttpPut("Update", Name = nameof(UpdateGasStation))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

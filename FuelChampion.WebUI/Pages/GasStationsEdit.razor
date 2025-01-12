@@ -1,0 +1,91 @@
+﻿@page "/gasStationsEdit/"
+@page "/gasStationsEdit/{id:int}"
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+
+@attribute [Authorize]
+
+@if (Id is null)
+{
+    <PageTitle>Dodaj</PageTitle>
+    <h3>Dodaj</h3>
+}
+else
+{
+    <PageTitle>Edytuj @gasStation.Name</PageTitle>
+    <h3>Edytuj @gasStation.Name</h3>
+}
+
+<EditForm Model="gasStation" OnSubmit="HandleSubmit">
+    <div>
+        <label for="name">Nazwa</label>
+        <InputText id="name" @bind-Value="gasStation.Name" class="form-control" />
+    </div>
+    <div>
+        <label for="voivodeship">Województwo</label>
+        <InputSelect id="voivodeship" @bind-Value="gasStation.Voivodeship" class="form-control" DisplayName="Wybierz województwo">
+            @foreach (var voievodeship in EnumExtensions.ToList<Voivodeship>())
+            {
+                <option value="@voievodeship.Value">@voievodeship.Description</option>
+            }
+        </InputSelect>
+    </div>
+    <div>
+        <label for="city">Miasto</label>
+        <InputText id="city" @bind-Value="gasStation.City" class="form-control" />
+    </div>
+    <div>
+        <label for="address">Adres</label>
+        <InputText id="address" @bind-Value="gasStation.Address" class="form-control" />
+    </div> 
+
+    <button type="submit" class="mt-4 btn btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy-fill" viewBox="0 0 16 16">
+            <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z" />
+            <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z" />
+        </svg> Zapisz
+    </button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    GasStation gasStation = new GasStation
+    {
+
+    };
+
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
+    //     gasStation.Voivodeship = cars.FirstOrDefault()?.Id;
+    // }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is null)
+        {
+            return;
+        }
+
+        var result = await ApiService.GetAsync<GasStation>($"/gasStation/{Id}");
+        if (result is null)
+        {
+            return;
+        }
+        gasStation = result;
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (Id is null)
+        {
+            await ApiService.PostAsJsonAsync("/gasStation/Create", gasStation);
+        }
+        else
+        {
+            await ApiService.PutAsync($"/gasStation/Update/{Id}", gasStation);
+        }
+        NavigationManager.NavigateTo("/gasStations");
+    }
+}

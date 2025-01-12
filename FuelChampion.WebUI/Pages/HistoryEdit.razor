@@ -17,7 +17,6 @@ else
 }
 
 <EditForm Model="invoice" OnSubmit="HandleSubmit">
-
     <div>
         <label for="refuelingDate">Data</label>
         <InputDate Type="InputDateType.DateTimeLocal" id="refuelingDate" @bind-Value="invoice.RefuelingDate" class="form-control" />
@@ -66,6 +65,10 @@ else
             <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z" />
         </svg> Zapisz
     </button>
+    @if (Id is not null)
+    {
+        <button @onclick="DeleteInvoice" type="button" class="m-3 btn btn-danger">Usuń</button>
+    }
 </EditForm>
 
 @code {
@@ -90,14 +93,23 @@ else
 
     protected override async Task OnParametersSetAsync()
     {
-        if (Id is not null)
+        if (Id is null)
         {
-            var result = await ApiService.GetAsync<Invoice>($"/invoice/{Id}");
-            if (result is not null)
-            {
-                invoice = result;
-            }
+            return;
         }
+
+        var result = await ApiService.GetAsync<Invoice>($"/invoice/{Id}");
+        if (result is null)
+        {
+            return;
+        }
+        invoice = result;
+    }
+
+    private async Task DeleteInvoice()
+    {
+        await ApiService.DeleteAsync($"invoice/{Id}");
+        NavigationManager.NavigateTo("/history");
     }
 
     async Task HandleSubmit()

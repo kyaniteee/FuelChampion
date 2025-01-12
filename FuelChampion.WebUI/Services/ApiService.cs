@@ -41,6 +41,11 @@ public class ApiService
         return response.IsSuccessStatusCode;
     }
 
+    public async Task<HttpResponseMessage> DeleteAsync(string endpoint)
+    {
+        return  await _httpClient.DeleteAsync(endpoint);
+    }
+
     //public async Task<HttpResponseMessage> GetAuthenticationStateAsync()
     //{
     //    return await _httpClient.GetAsync<AuthenticationState>("/AuthState");

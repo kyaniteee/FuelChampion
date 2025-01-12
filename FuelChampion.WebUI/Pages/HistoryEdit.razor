@@ -50,6 +50,7 @@ else
     <div>
         <label for="car">Samochód</label>
         <InputSelect id="car" @bind-Value="invoice.CarId" class="form-control">
+            <option value=""></option>
             @foreach (var car in cars)
             {
                 <option value="@car.Id">@car.Producent | @car.Model | @car.ProductionYear | @car.RegistrationNumber</option>
@@ -75,9 +76,9 @@ else
     [Parameter]
     public int? Id { get; set; }
     Invoice invoice = new Invoice
-    {
-        RefuelingDate = DateTime.Now,
-    };
+        {
+            RefuelingDate = DateTime.Now,
+        };
 
     public IList<Car> cars;
     public IList<GasStation> gasStations;
@@ -88,7 +89,10 @@ else
         cars = await ApiService.GetAsync<List<Car>>($"/Car/Cars/{userId.ToString()}");
         gasStations = await ApiService.GetAsync<IList<GasStation>>("/GasStation");
 
-        invoice.CarId = cars.FirstOrDefault()?.Id;
+        if (Id is null)
+        {
+            invoice.CarId = cars.FirstOrDefault()?.Id;
+        }
     }
 
     protected override async Task OnParametersSetAsync()
@@ -126,6 +130,6 @@ else
         {
             await ApiService.PutAsync($"/invoice/Update/{Id}", invoice);
         }
-        NavigationManager.NavigateTo("/history");
+        NavigationManager.NavigateTo("/history", true);
     }
 }

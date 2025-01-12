@@ -1,6 +1,7 @@
 ﻿@inject ApiService ApiService
 @inject NavigationManager NavigationManager
 @page "/Rejestracja"
+@using Newtonsoft.Json
 
 <PageTitle>Rejestracja</PageTitle>
 
@@ -58,12 +59,15 @@
     async Task HandleSubmit()
     {
         HttpContent httpContent = JsonContent.Create(User);
-        await ApiService.PostAsync<User>("/UserRegister", httpContent).ContinueWith(x =>
+        await ApiService.PostAsync<User>("/UserRegister", httpContent).ContinueWith(async x =>
         {
             if (x.Result.IsSuccessStatusCode)
             {
-
-                NavigationManager.NavigateTo("/history");
+                var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
+                string response = await x.Result.Content.ReadAsStringAsync();
+                var loginResponse = JsonConvert.DeserializeObject<NewUserDTO>(response);
+                customAuthStateProvider.UpdateAuthenticationState(loginResponse?.Token);
+                NavigationManager.NavigateTo("/", forceLoad: true);
             }
             else
             {

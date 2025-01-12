@@ -8,7 +8,7 @@
 <PageTitle>Logowanie</PageTitle>
 
 <div class="row">
-    <div class="col-lg-4 offset-lg-4 pt-4 pb-4  border">
+    <div class="col-lg-6 offset-lg-2 pt-4 pb-4  border">
         <EditForm Model="User" OnValidSubmit="HandleSubmit" FormName="LoginForm">
             <h3>Logowanie</h3>
             <DataAnnotationsValidator />
@@ -23,26 +23,16 @@
                 <ValidationMessage For="() => User.Password"></ValidationMessage>
             </div>
             <button type="submit" class="mb-3 btn btn-primary">Logowanie</button>
-            <ValidationSummary class="text-danger"></ValidationSummary>
         </EditForm>
     </div>
 </div>
 
-
 @code {
     public LoginDto User = new LoginDto();
     public int? Id { get; set; }
-    private string? errorMessage;
-
-    private async Task Authenticate()
-    {
-        // var userAccount = ApiService.GetAsync("/user");
-    }
 
     async Task HandleSubmit()
     {
-        // HttpContent httpContent = JsonContent.Create(User);
-        errorMessage = null;
         await ApiService.PostAsJsonAsyncHttpResponse<LoginDto>("/UserLogin", User).ContinueWith(async x =>
         {
             if (x.Result.IsSuccessStatusCode)
@@ -56,33 +46,7 @@
             else
             {
                 // todo: komunikaty
-                // errorMessage = x.Result.Content.ToString();
             }
         });
-
-        //     await ApiService.PostAsJsonAsync<LoginDto>("/UserLogin", User).ContinueWith(async x =>
-        // {
-        // if (x.IsCompleted)
-        // {
-        //     var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthStateProvider;
-        //     await customAuthStateProvider.UpdateAuthenticationState(x.Result.Content.Headers.ToString());
-        //     NavigationManager.NavigateTo("/", forceLoad: true);
-        // }
-        // else
-        // {
-        //     // todo: komunikaty
-        //     // errorMessage = x.Result.Content.ToString();
-        // }
-        // });
-
-
-        // var result = await ApiService.PostAsJsonAsync("/UserLogin", User);
-        // if (result)
-        // {
-            
-        // }
-        // HttpContent httpContent = JsonContent.Create(User);
-        // await ApiService.PostAsJsonAsync("/UserLogin", User);
-        // await ApiService.PostAsync("/UserLogin", User);
     }
 }

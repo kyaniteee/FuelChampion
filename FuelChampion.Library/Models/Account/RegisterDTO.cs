@@ -1,18 +1,21 @@
 ﻿using FuelChampion.Library.Enums;
+using FuelChampion.Library.Models.Account.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace FuelChampion.Library.Models.Account;
 
 public class RegisterDto
 {
-    [Required]
+    [Required(ErrorMessage = "Nazwa użytkownika nie może być pusta")]
+    [StringLength(256, MinimumLength = 5, ErrorMessage = "Nazwa użytkownika musi mieć przynajmniej 5 znaków")]
     public string? UserName { get; set; }
 
-    [Required]
     [EmailAddress]
+    [Required(ErrorMessage = "Email jest wymagany")]
     public string? Email { get; set; }
 
-    [Required]
+    [PasswordValidation]
+    [Required(ErrorMessage = "Hasło nie może być puste")]
     public string? Password { get; set; }
 
     public Voivodeship? Voivodeship { get; set; }

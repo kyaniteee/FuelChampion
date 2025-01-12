@@ -10,8 +10,9 @@ namespace FuelChampion.Api.Data;
 public class DBContext : IdentityDbContext<User>
 {
     public virtual DbSet<Car> Cars { get; set; }
-    public virtual DbSet<GasStation> GasStations { get; set; }
     public virtual DbSet<Invoice> Invoices { get; set; }
+    public virtual DbSet<GasStation> GasStations { get; set; }
+    public virtual DbSet<InvoiceView> InvoicesView { get; set; }
     public virtual DbSet<GasStationAvgVoivodeshipPrice> GasStationAvgVoivodeshipPrices { get; set; }
 
     public DBContext(DbContextOptions options) : base(options) { }
@@ -32,6 +33,7 @@ public class DBContext : IdentityDbContext<User>
         modelBuilder.ApplyConfiguration(new CarConfig());
         modelBuilder.ApplyConfiguration(new InvoiceConfig());
         modelBuilder.ApplyConfiguration(new GasStationConfig());
+        modelBuilder.ApplyConfiguration(new InvoicesViewConfig());
         modelBuilder.ApplyConfiguration(new GasStationAvgVoivodeshipPriceConfig());
     }
 }

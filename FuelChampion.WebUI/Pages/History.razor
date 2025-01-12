@@ -16,26 +16,30 @@ else
     <table class="table">
         <thead>
             <tr>
+                <th>Stacja paliw</th>
                 <th>Data</th>
                 <th>Litrów</th>
                 <th>Typ </th>
                 <th>Cena za litr</th>
                 <th>Cena całkowita</th>
+                <th>Samochód</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var invoice in invoices)
+            @foreach (var i in invoices)
             {
                 <tr>
-                    <td>@invoice.RefuelingDate.ToString("dd.MM.yyyy HH:mm")</td>
-                    <td>@invoice.RefueledLitersAmount</td>
-                    <td>@invoice.FuelType</td>
-                    <td>@invoice.PricePerLiter.ToStringPLN()</td>
-                    <td>@invoice.TotalPrice.ToStringPLN()</td>
+                    <td>@i.GasStationName</td>
+                    <td>@i.RefuelingDate.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@i.RefueledLitersAmount</td>
+                    <td>@i.FuelType</td>
+                    <td>@i.PricePerLiter.ToStringPLN()</td>
+                    <td>@i.TotalPrice.ToStringPLN()</td>
+                    <td>@i.CarRegistrationNumber?.ToUpper()</td>
 
                     <td>
-                        <button @onclick="() => EditInvoice(invoice.Id)" class="btn btn-secondary">
+                        <button @onclick="() => EditInvoice(i.Invoice_id)" class="btn btn-secondary">
                             Edytuj
                         </button>
                     </td>
@@ -55,12 +59,12 @@ else
 </p>
 
 @code {
-    private List<Invoice> invoices = new List<Invoice>();
+    private List<InvoiceView> invoices = new ();
 
     protected override async Task OnInitializedAsync()
     {
         var userId = await (AuthStateProvider as CustomAuthenticationStateProvider)!.GetUserId();
-        invoices = await ApiService.GetAsync<List<Invoice>>($"/invoice/{userId.ToString()}");
+        invoices = await ApiService.GetAsync<List<InvoiceView>>($"/Invoice/InvoicesView/{userId.ToString()}");
     }
 
     private async Task AddNewInvoice() => NavigationManager.NavigateTo("/invoice");

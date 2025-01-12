@@ -4,6 +4,7 @@ using FuelChampion.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelChampion.Api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20250112131957_120120251420")]
+    partial class _120120251420
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,7 +251,7 @@ namespace FuelChampion.Api.Migrations
                             RefueledLitersAmount = 40m,
                             RefuelingDate = new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 200.00m,
-                            UserId = new Guid("6ff8423f-631d-41a3-9c4b-1e706809cb84")
+                            UserId = new Guid("a5660a54-eac7-4eac-9505-86eb259225db")
                         },
                         new
                         {
@@ -260,95 +263,8 @@ namespace FuelChampion.Api.Migrations
                             RefueledLitersAmount = 54m,
                             RefuelingDate = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 300.00m,
-                            UserId = new Guid("e0bd7101-ecfa-47fc-bc09-b5b87ffa2a4e")
+                            UserId = new Guid("c1651a12-85e0-45b6-b415-b87b80ec0fc3")
                         });
-                });
-
-            modelBuilder.Entity("FuelChampion.Library.Models.InvoiceView", b =>
-                {
-                    b.Property<int>("Invoice_id")
-                        .HasColumnType("int")
-                        .HasColumnName("Invoice_id");
-
-                    b.Property<int?>("CarId")
-                        .HasColumnType("int")
-                        .HasColumnName("CarId");
-
-                    b.Property<string>("CarModel")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("CarModel");
-
-                    b.Property<string>("CarProducent")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)")
-                        .HasColumnName("CarProducent");
-
-                    b.Property<int?>("CarProductionYear")
-                        .HasMaxLength(4)
-                        .HasColumnType("int")
-                        .HasColumnName("CarProductionYear");
-
-                    b.Property<string>("CarRegistrationNumber")
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)")
-                        .HasColumnName("CarRegistrationNumber");
-
-                    b.Property<int>("FuelType")
-                        .HasColumnType("int")
-                        .HasColumnName("FuelType");
-
-                    b.Property<string>("GasStationAddress")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("GasStationAddress");
-
-                    b.Property<string>("GasStationCity")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnName("GasStationCity");
-
-                    b.Property<int>("GasStationId")
-                        .HasColumnType("int")
-                        .HasColumnName("GasStationId");
-
-                    b.Property<string>("GasStationName")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)")
-                        .HasColumnName("GasStationName");
-
-                    b.Property<int?>("GasStationVoivodeship")
-                        .HasColumnType("int")
-                        .HasColumnName("GasStationVoivodeship");
-
-                    b.Property<decimal?>("PricePerLiter")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)")
-                        .HasColumnName("PricePerLiter");
-
-                    b.Property<decimal>("RefueledLitersAmount")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)")
-                        .HasColumnName("RefueledLitersAmount");
-
-                    b.Property<DateTime>("RefuelingDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("RefuelingDate");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)")
-                        .HasColumnName("TotalPrice");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UserId");
-
-                    b.HasKey("Invoice_id");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("InvoicesView", (string)null);
                 });
 
             modelBuilder.Entity("FuelChampion.Library.Models.User", b =>
@@ -451,13 +367,13 @@ namespace FuelChampion.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e5fae11a-a8ce-4769-9b2e-b8f8871a04dd",
+                            Id = "b30fb8a9-cd9b-4c7a-9995-b626815e657f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f1ed103e-7451-4c2f-9739-68be6e0f7c51",
+                            Id = "ee0a0b5f-22d0-4e75-85ed-78da999db905",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -567,6 +483,59 @@ namespace FuelChampion.Api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("FuelChampion.Library.Models.InvoiceView", b =>
+                {
+                    b.HasBaseType("FuelChampion.Library.Models.Invoice");
+
+                    b.Property<string>("CarModel")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("CarModel");
+
+                    b.Property<string>("CarProducent")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("CarProducent");
+
+                    b.Property<int>("CarProductionYear")
+                        .HasMaxLength(4)
+                        .HasColumnType("int")
+                        .HasColumnName("CarProductionYear");
+
+                    b.Property<string>("CarRegistrationNumber")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)")
+                        .HasColumnName("CarRegistrationNumber");
+
+                    b.Property<string>("GasStationAddress")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)")
+                        .HasColumnName("GasStationAddress");
+
+                    b.Property<string>("GasStationCity")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)")
+                        .HasColumnName("GasStationCity");
+
+                    b.Property<string>("GasStationName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)")
+                        .HasColumnName("GasStationName");
+
+                    b.Property<int>("GasStationVoivodeship")
+                        .HasColumnType("int")
+                        .HasColumnName("GasStationVoivodeship");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("InvoicesView", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

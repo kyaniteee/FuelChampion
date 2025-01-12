@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FuelChampion.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class _110120251648 : Migration
+    public partial class _120120251604 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,8 @@ namespace FuelChampion.Api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Voivodeship = table.Column<int>(type: "int", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -219,8 +221,8 @@ namespace FuelChampion.Api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1fde280d-b3ea-49ba-b5de-d336bf6caca5", null, "User", "USER" },
-                    { "4c154cbe-bd98-4488-b579-e7a1000e696d", null, "Admin", "ADMIN" }
+                    { "1559d78d-af82-4061-ace0-d1ddcbcda8a2", null, "Admin", "ADMIN" },
+                    { "cc0f959b-292f-49ff-8b44-7369b6267b6f", null, "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -235,15 +237,6 @@ namespace FuelChampion.Api.Migrations
                     { 5, "ul. Puławska 38", "Lublin", "TEZET Sp. z o.o.", 4 },
                     { 6, "ul. Frezerów 3", "Lublin", "Stacja Auto-Gazu", 4 },
                     { 7, "ul. Tulipanowa 72", "Lublin", "Władysław Wasiluk - PETRO-BUD-GAZ", 4 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Invoices",
-                columns: new[] { "Invoice_id", "CarId", "FuelType", "GasStationId", "PricePerLiter", "RefueledLitersAmount", "RefuelingDate", "TotalPrice", "UserId" },
-                values: new object[,]
-                {
-                    { 1, 1, 2, 1, 5.00m, 40m, new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 200.00m, new Guid("97bec6ea-36e9-4a4b-b476-5f66b835ba4e") },
-                    { 2, 1, 2, 2, 5.50m, 54m, new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 300.00m, new Guid("9d672cb8-4922-4d66-875e-1057fb170ce7") }
                 });
 
             migrationBuilder.CreateIndex(

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FuelChampion.Api.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20250112132901_120120251428")]
-    partial class _120120251428
+    [Migration("20250112153509_120120251604")]
+    partial class _120120251604
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,32 +239,6 @@ namespace FuelChampion.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Invoices", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CarId = 1,
-                            FuelType = 2,
-                            GasStationId = 1,
-                            PricePerLiter = 5.00m,
-                            RefueledLitersAmount = 40m,
-                            RefuelingDate = new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 200.00m,
-                            UserId = new Guid("4213a1fa-e290-444d-b11d-2bbbd8d75804")
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CarId = 1,
-                            FuelType = 2,
-                            GasStationId = 2,
-                            PricePerLiter = 5.50m,
-                            RefueledLitersAmount = 54m,
-                            RefuelingDate = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 300.00m,
-                            UserId = new Guid("fd387e4b-f3b5-4321-bec2-d41995efd9bf")
-                        });
                 });
 
             modelBuilder.Entity("FuelChampion.Library.Models.InvoiceView", b =>
@@ -278,18 +252,16 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("CarId");
 
                     b.Property<string>("CarModel")
-                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)")
                         .HasColumnName("CarModel");
 
                     b.Property<string>("CarProducent")
-                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)")
                         .HasColumnName("CarProducent");
 
-                    b.Property<int>("CarProductionYear")
+                    b.Property<int?>("CarProductionYear")
                         .HasMaxLength(4)
                         .HasColumnType("int")
                         .HasColumnName("CarProductionYear");
@@ -304,13 +276,11 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("FuelType");
 
                     b.Property<string>("GasStationAddress")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("GasStationAddress");
 
                     b.Property<string>("GasStationCity")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
                         .HasColumnName("GasStationCity");
@@ -320,12 +290,11 @@ namespace FuelChampion.Api.Migrations
                         .HasColumnName("GasStationId");
 
                     b.Property<string>("GasStationName")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)")
                         .HasColumnName("GasStationName");
 
-                    b.Property<int>("GasStationVoivodeship")
+                    b.Property<int?>("GasStationVoivodeship")
                         .HasColumnType("int")
                         .HasColumnName("GasStationVoivodeship");
 
@@ -381,6 +350,9 @@ namespace FuelChampion.Api.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -403,6 +375,9 @@ namespace FuelChampion.Api.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("SecondName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -459,13 +434,13 @@ namespace FuelChampion.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d8ba7319-a6a0-4c57-8529-106ddf8f6190",
+                            Id = "1559d78d-af82-4061-ace0-d1ddcbcda8a2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "42979059-504b-499b-b6c0-46da9a11bcea",
+                            Id = "cc0f959b-292f-49ff-8b44-7369b6267b6f",
                             Name = "User",
                             NormalizedName = "USER"
                         });

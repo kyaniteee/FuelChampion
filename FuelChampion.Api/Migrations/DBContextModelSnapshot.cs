@@ -236,32 +236,6 @@ namespace FuelChampion.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Invoices", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CarId = 1,
-                            FuelType = 2,
-                            GasStationId = 1,
-                            PricePerLiter = 5.00m,
-                            RefueledLitersAmount = 40m,
-                            RefuelingDate = new DateTime(2024, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 200.00m,
-                            UserId = new Guid("df60122b-9dce-4d15-8b61-285e5fc6374c")
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CarId = 1,
-                            FuelType = 2,
-                            GasStationId = 2,
-                            PricePerLiter = 5.50m,
-                            RefueledLitersAmount = 54m,
-                            RefuelingDate = new DateTime(2025, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 300.00m,
-                            UserId = new Guid("8a309e75-30ca-4422-8173-180fd3ec2300")
-                        });
                 });
 
             modelBuilder.Entity("FuelChampion.Library.Models.InvoiceView", b =>
@@ -457,13 +431,13 @@ namespace FuelChampion.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a8aa4375-e637-4fc9-97e7-442454b894ab",
+                            Id = "1559d78d-af82-4061-ace0-d1ddcbcda8a2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "141dc2d5-3753-45c7-b67a-7f1dc7bcc104",
+                            Id = "cc0f959b-292f-49ff-8b44-7369b6267b6f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
